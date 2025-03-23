@@ -1,0 +1,148 @@
+<div class="titulo">
+  <h3>Odontologia Integral</h3>
+</div>
+<h2>Consultorio dental de la Dra. Nancy Sánchez</h2>
+
+<header class="barra">
+  <nav>
+    <ul>
+      <li><a routerLink="/">Inicio</a></li>
+      <li><a routerLink="/quienes-somos">¿Quiénes somos?</a></li>
+      <li><a routerLink="/servicios">Servicios</a></li>
+      <li><a routerLink="/contacto">Contacto</a></li>
+      <li><a routerLink="/login">Iniciar sesión</a></li>
+      <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a></li>
+      <li><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+      <li><a href="https://www.whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+    </ul>
+  </nav>
+  <img src="assets/logo_od.ico" class="logo">
+</header>
+
+<div class="container">
+  <h1 class="titulo1">Servicios</h1>
+  <h1 style="text-align: center;">Selecciona un servicio para obtener detalles</h1>
+
+  <div class="contenedor-servicios">
+    <!-- Limpieza dental -->
+    <section class="espacio" (click)="openModal(1)">
+      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/limpieza_dental.jpg" alt="Limpieza dental">
+      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Limpieza dental</h2>
+      <p>Para mantener una higiene bucal óptima, cepíllate los dientes al menos dos veces al día y usa hilo dental diariamente.</p>
+    </section>
+
+    <!-- Modal Limpieza dental -->
+    <dialog id="modal1">
+      <h3 class="dialog-title">Limpieza dental</h3>
+      <p class="dialog-content">Una limpieza dental profesional ayuda a eliminar la placa y el sarro acumulado en los dientes y debajo de las encías.</p>
+      <p class="dialog-cost">Costo $150.</p>
+      <button class="dialog-close-button" (click)="closeModal(1)">Cerrar</button>
+    </dialog>
+
+    <!-- Extracción de muelas -->
+    <section class="espacio" (click)="openModal(2)">
+      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/extraccion.jpg" alt="Extracción de muelas">
+      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Extracción de muelas</h2>
+      <p>Después de una extracción, sigue las instrucciones de tu dentista para evitar infecciones y facilitar la recuperación.</p>
+    </section>
+
+    <!-- Modal Extracción de muelas -->
+    <dialog id="modal2">
+      <h3 class="dialog-title">Extracción de muelas</h3>
+      <p class="dialog-content">La extracción de muelas, especialmente las del juicio, es un procedimiento común para evitar problemas futuros como infecciones, dolor, y daño a los dientes adyacentes.</p>
+      <p class="dialog-cost">Costo $300.</p>
+      <button class="dialog-close-button" (click)="closeModal(2)">Cerrar</button>
+    </dialog>
+
+    <!-- Ortodoncia -->
+    <section class="espacio" (click)="openModal(3)">
+      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/ortodoncia.jpg" alt="Ortodoncia">
+      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Ortodoncia</h2>
+      <p>Usa tus retenedores según las indicaciones de tu ortodoncista para mantener los resultados después del tratamiento.</p>
+    </section>
+
+    <!-- Modal Ortodoncia -->
+    <dialog id="modal3">
+      <h3 class="dialog-title">Ortodoncia</h3>
+      <p class="dialog-content">La ortodoncia se encarga de corregir problemas de alineación dental y de mordida mediante el uso de brackets, alineadores y otros dispositivos.</p>
+      <p class="dialog-cost">Costo $5000.</p>
+      <button class="dialog-close-button" (click)="closeModal(3)">Cerrar</button>
+    </dialog>
+
+    <!-- Implantes -->
+    <section class="espacio" (click)="openModal(4)">
+      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/implante.jpg" alt="Implantes">
+      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Implantes</h2>
+      <p>Evita masticar alimentos duros que puedan dañar los implantes.</p>
+    </section>
+
+    <!-- Modal Implantes -->
+    <dialog id="modal4">
+      <h3 class="dialog-title">Implantes</h3>
+      <p class="dialog-content">Los implantes dentales son estructuras de titanio que se insertan en el hueso maxilar para reemplazar dientes perdidos.</p>
+      <p class="dialog-cost">Costo $3000.</p>
+      <button class="dialog-close-button" (click)="closeModal(4)">Cerrar</button>
+    </dialog>
+
+    <!-- Bruxismo -->
+    <section class="espacio" (click)="openModal(5)">
+      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/bruxismo.jpg" alt="Bruxismo">
+      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Bruxismo</h2>
+      <p>Realiza ejercicios de relajación para reducir el estrés, una causa común del bruxismo.</p>
+    </section>
+
+    <!-- Modal Bruxismo -->
+    <dialog id="modal5">
+      <h3 class="dialog-title">Bruxismo</h3>
+      <p class="dialog-content">El bruxismo es el hábito involuntario de apretar o rechinar los dientes, especialmente durante el sueño.</p>
+      <p class="dialog-cost">Costo $1000.</p>
+      <button class="dialog-close-button" (click)="closeModal(5)">Cerrar</button>
+    </dialog>
+
+    <!-- Blanqueamiento dental -->
+    <section class="espacio" (click)="openModal(6)">
+      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/blanqueamiento.jpg" alt="Blanqueamiento dental">
+      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Blanqueamiento dental</h2>
+      <p>Evita alimentos y bebidas que pueden manchar tus dientes, como el café, el té y el vino tinto.</p>
+    </section>
+
+    <!-- Modal Blanqueamiento dental -->
+    <dialog id="modal6">
+      <h3 class="dialog-title">Blanqueamiento dental</h3>
+      <p class="dialog-content">El blanqueamiento dental es un tratamiento estético que permite aclarar el color de los dientes y eliminar manchas, devolviendo a la sonrisa un aspecto brillante y saludable.</p>
+      <p class="dialog-cost">Costo $800.</p>
+      <button class="dialog-close-button" (click)="closeModal(6)">Cerrar</button>
+    </dialog>
+
+    <!-- Endodoncia -->
+    <section class="espacio" (click)="openModal(7)">
+      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/endodoncia.jpg" alt="Endodoncia">
+      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Endodoncia</h2>
+      <p>Sigue las indicaciones de tu dentista para el cuidado post-endodoncia.</p>
+    </section>
+
+    <!-- Modal Endodoncia -->
+    <dialog id="modal7">
+      <h3 class="dialog-title">Endodoncia</h3>
+      <p class="dialog-content">La endodoncia, o tratamiento de conducto, se realiza para salvar dientes que han sido gravemente dañados por caries o lesiones.</p>
+      <p class="dialog-cost">Costo $1000.</p>
+      <button class="dialog-close-button" (click)="closeModal(7)">Cerrar</button>
+    </dialog>
+
+    <!-- Carillas Dentales -->
+    <section class="espacio" (click)="openModal(8)">
+      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/periodoncia.jpeg" alt="Carillas Dentales">
+      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Carillas Dentales</h2>
+      <p>Evita morder objetos duros que puedan dañar las carillas.</p>
+    </section>
+
+    <!-- Modal Carillas Dentales -->
+    <dialog id="modal8">
+      <h3 class="dialog-title">Carillas Dentales</h3>
+      <p class="dialog-content">Las carillas dentales son finas capas de porcelana o resina que se colocan sobre los dientes para mejorar su apariencia estética.</p>
+      <p class="dialog-cost">Costo $1500.</p>
+      <button class="dialog-close-button" (click)="closeModal(8)">Cerrar</button>
+    </dialog>
+
+  </div>
+</div>
