@@ -11,7 +11,7 @@
 export const environment = {
     production: false,
     api: {
-      authApis: 'https://miapi.utcv-tievnd.com/api',
+      authApis: 'http://localhost:3004/api',
       proyectApis: 'http://localhost:3004/api',
     },
 };

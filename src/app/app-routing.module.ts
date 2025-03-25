@@ -6,15 +6,18 @@ import { QuienesSomosComponent } from './quienes-somos/quienes-somos.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { RegisterComponent } from './auth/containers/register/register.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: 'inicio', component: LandingComponent },
   { path: 'quienes-somos', component: QuienesSomosComponent },
-  { path: 'servicios', component: ServiciosComponent},
+  { path: 'servicios', component: ServiciosComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'login', component: LoginComponent }, // Ruta para LoginComponent
   { path: 'register', component: RegisterComponent }, // Ruta para RegisterComponent
 
+  // Carga perezosa del módulo AdminModule
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
 @NgModule({

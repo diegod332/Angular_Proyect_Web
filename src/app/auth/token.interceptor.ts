@@ -17,9 +17,16 @@ export class TokenInterceptor implements HttpInterceptor {
             request = this.addToken(request, this.authService.getJwtToken());
         }
 
-        return next.handle(request).pipe(catchError(error => {
-            return throwError(error);
-        }));
+        return next.handle(request).pipe(
+            catchError((error: HttpErrorResponse) => {
+                if (error.status === 401) {
+                    // Si el error es 401, intenta manejarlo con handle401Error
+                    return this.handle401Error(request, next);
+                }
+                // Propaga otros errores
+                return throwError(() => error);
+            })
+        );
     }
 
     private addToken(request: HttpRequest<any>, token: string) {
@@ -30,24 +37,29 @@ export class TokenInterceptor implements HttpInterceptor {
         });
     }
 
-    private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (!this.isRefreshing) {
             this.isRefreshing = true;
             this.refreshTokenSubject.next(null);
+
             return this.authService.refreshToken().pipe(
                 switchMap((token: any) => {
                     this.isRefreshing = false;
                     this.refreshTokenSubject.next(token.jwt);
                     return next.handle(this.addToken(request, token.jwt));
-                }));
-
+                }),
+                catchError((err) => {
+                    this.isRefreshing = false;
+                    this.authService.logout(); // Cierra sesión si el refresh falla
+                    return throwError(() => err);
+                })
+            );
         } else {
             return this.refreshTokenSubject.pipe(
                 filter(token => token != null),
                 take(1),
-                switchMap(jwt => {
-                    return next.handle(this.addToken(request, jwt));
-                }));
+                switchMap(jwt => next.handle(this.addToken(request, jwt)))
+            );
         }
     }
 }

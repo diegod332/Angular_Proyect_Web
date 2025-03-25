@@ -20,12 +20,26 @@ export class AuthService {
         private router: Router,
         ) {}
 
-    login(user: { email: string, password: string }): Observable<boolean> {
-        return this.http.post<any>(`${environment.api.authApis}/login`, user);
-    }
+        login(user: { email: string, password: string }): Observable<boolean> {
+          console.log('Iniciando login con:', user); // Depuración
+          return this.http.post<any>(`${environment.api.authApis}/login`, user).pipe(
+              tap((tokens: Tokens) => {
+                  console.log('Tokens recibidos en login:', tokens); // Depuración
+                  this.storeTokens(tokens); // Guarda los tokens y los datos del usuario
+              }),
+              mapTo(true),
+              catchError((error) => {
+                  console.error('Error en el inicio de sesión:', error);
+                  return throwError(() => error);
+              })
+          );
+      }
+      
+ 
 
   logout() {
-    return this.http.post<any>(`${environment.api.authApis}/logout`, {})
+    const refreshToken = localStorage.getItem('REFRESH_TOKEN'); // Obtén el refresh token
+    return this.http.post<any>(`${environment.api.authApis}/logout`, { refreshToken })
       .pipe(
         tap((response) => {
           if (response && response.message === 'Cierre de sesión exitoso') {
@@ -64,11 +78,18 @@ export class AuthService {
     }
 
     refreshToken() {
-        return this.http.post<any>(`${environment.api.authApis}/refresh`, {
-        }).pipe(tap((tokens: Tokens) => {
-            this.storeJwtToken(tokens.token);
-        }));
-    }
+      const refreshToken = localStorage.getItem('REFRESH_TOKEN'); // Obtén el refresh token
+      return this.http.post<any>(`${environment.api.authApis}/refresh`, { refreshToken }).pipe(
+          tap((tokens: Tokens) => {
+              this.storeTokens(tokens); // Guarda el nuevo JWT y el refresh token (si se devuelve)
+          }),
+          catchError((error) => {
+              console.error('Error al renovar el token:', error);
+              this.logout(); // Cierra sesión si el refresh falla
+              return throwError(() => error);
+          })
+      );
+  }
 
     getJwtToken() {
       let token = localStorage.getItem(this.JWT_TOKEN);
@@ -95,12 +116,21 @@ export class AuthService {
     }
 
     private storeTokens(tokens: Tokens) {
-        localStorage.setItem(this.JWT_TOKEN, tokens.token);
-        localStorage.setItem(this.USER_CURRENT, JSON.stringify(tokens.user));
-    }
+      console.log('storeTokens ejecutado con:', tokens); // Depuración
+      localStorage.setItem(this.JWT_TOKEN, tokens.token);
+      localStorage.setItem('REFRESH_TOKEN', String(tokens.refreshToken));
+      localStorage.setItem(this.USER_CURRENT, JSON.stringify(tokens.user));
+  
+      console.log('Tokens guardados en localStorage:', {
+          JWT_TOKEN: localStorage.getItem(this.JWT_TOKEN),
+          REFRESH_TOKEN: localStorage.getItem('REFRESH_TOKEN'),
+          USER_CURRENT: localStorage.getItem(this.USER_CURRENT),
+      });
+  }
 
     private removeTokens() {
-        localStorage.removeItem(this.JWT_TOKEN);
-        localStorage.removeItem(this.USER_CURRENT);
-    }
+    localStorage.removeItem(this.JWT_TOKEN);
+    localStorage.removeItem('REFRESH_TOKEN'); // Elimina el refresh token
+    localStorage.removeItem(this.USER_CURRENT);
+}
 }
