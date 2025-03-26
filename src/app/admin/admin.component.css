@@ -19,12 +19,11 @@
 }
 
 .nav-link:hover {
-  background-color: #000000;
+  background-color: #565656;
 }
 
 .nav-link.active {
   background-color: #000000;
-  color: #000000;
 }
 
 .content {
