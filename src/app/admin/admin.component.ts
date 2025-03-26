@@ -4,27 +4,28 @@ import {
   Component,
   OnInit,
   HostListener,
-  ViewEncapsulation, ElementRef
+  ViewEncapsulation,
+  ElementRef
 } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
   standalone: false,
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css',
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./admin.component.css'], // Cambiado a "styleUrls"
+  encapsulation: ViewEncapsulation.Emulated, // Encapsulación predeterminada
 })
 export class AdminComponent implements OnInit, AfterViewInit {
   constructor(
     private el: ElementRef,
     private ngZone: NgZone,
-  ) {
-  }
+  ) {}
+
   ngOnInit(): void {
-
-  }
-  ngAfterViewInit() {
-
+    // Lógica de inicialización
   }
 
+  ngAfterViewInit(): void {
+    // Lógica después de que la vista se haya inicializado
+  }
 }

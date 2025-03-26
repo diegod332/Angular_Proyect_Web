@@ -20,10 +20,8 @@ export class TokenInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error.status === 401) {
-                    // Si el error es 401, intenta manejarlo con handle401Error
                     return this.handle401Error(request, next);
                 }
-                // Propaga otros errores
                 return throwError(() => error);
             })
         );
@@ -50,7 +48,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 }),
                 catchError((err) => {
                     this.isRefreshing = false;
-                    this.authService.logout(); // Cierra sesión si el refresh falla
+                    this.authService.logout();
                     return throwError(() => err);
                 })
             );

@@ -1,53 +1,49 @@
 <div class="sidebar-custom">
-    <div>
-      <div class="sidebar-header">
-        <img src="assets/logo_od.ico" alt="Logo de la empresa">
-        <h4>Odontología Integral</h4>
-        <div id="usuario"></div>
-      </div>
-      <nav class="nav flex-column">
-        <a routerLink="/panel" routerLinkActive="active" class="nav-link">Inicio</a>
-        <a routerLink="/gestionar-citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
-        <a routerLink="/gestionar-citas-programadas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar-check"></i> Citas Programadas</a>
-        <a routerLink="/gestionar-inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
-        <a routerLink="/gestionar-servicios" routerLinkActive="active" class="nav-link"><i class="fas fa-briefcase-medical"></i> Servicios</a>
-        <a routerLink="/gestionar-usuarios" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Usuarios</a>
-        <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-      </nav>
+  <div>
+    <div class="sidebar-header">
+      <img src="assets/img/logo_od.ico" alt="Logo de la empresa">
+      <h4>Odontología Integral</h4>
+      <div id="usuario"></div>
     </div>
-    <div class="sidebar-footer">
-      &copy; 2024 Odontología Integral. Todos los derechos reservados.
-    </div>
+    <nav class="nav flex-column">
+      <a routerLink="/panel" routerLinkActive="active" class="nav-link">Inicio</a>
+      <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
+      <a routerLink="/gestionar-citas-programadas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar-check"></i> Citas Programadas</a>
+      <a routerLink="/gestionar-inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
+      <a routerLink="/gestionar-servicios" routerLinkActive="active" class="nav-link"><i class="fas fa-briefcase-medical"></i> Servicios</a>
+      <a routerLink="/gestionar-usuarios" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Usuarios</a>
+      <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </nav>
   </div>
-  
-  <div class="content">
-    <h1>Bienvenido al Panel Administrativo</h1>
-    <p>Aquí podrás administrar y gestionar todos los servicios que brinda esta empresa.</p>
-  
-    <div class="row">
-      <div class="col-lg-3 col-md-6" *ngFor="let card of cards">
-        <div class="card text-white" [ngClass]="card.bgClass">
-          <div class="card-body">
-            <div class="card-title">{{ card.title }}</div>
-            <h2 class="card-text">{{ card.value }}</h2>
-          </div>
+  <div class="sidebar-footer">
+    &copy; 2024 Odontología Integral. Todos los derechos reservados.
+  </div>
+</div>
+
+<div class="content">
+  <!-- Contenido principal -->
+  <h1>Bienvenido al Panel Administrativo</h1>
+  <p>Aquí podrás administrar y gestionar todos los servicios que brinda esta empresa.</p>
+
+  <!-- Tarjetas de estadísticas -->
+  <div class="row">
+    <div class="col-lg-3 col-md-6" *ngFor="let card of cards">
+      <div class="card text-white" [ngClass]="card.bgClass">
+        <div class="card-body">
+          <div class="card-title">{{ card.title }}</div>
+          <h2 class="card-text">{{ card.value }}</h2>
         </div>
       </div>
     </div>
-  
-    <div class="card mt-4" *ngFor="let chart of charts">
-      <div class="card-header">
-        <i [class]="chart.icon"></i> {{ chart.title }}
-      </div>
-      <div class="card-body">
-        <!-- Usamos chart.id para que cada canvas tenga un ID único -->
-        <canvas [id]="chart.id"></canvas>
-      </div>
+  </div>
+
+  <!-- Gráficos -->
+  <div class="card mt-4" *ngFor="let chart of charts">
+    <div class="card-header">
+      <i [class]="chart.icon"></i> {{ chart.title }}
+    </div>
+    <div class="card-body">
+      <canvas [id]="chart.id"></canvas>
     </div>
   </div>
-  
-  <div id="loading" class="loading" *ngIf="cargando">
-    <div class="spinner-border text-primary" role="status"></div>
-    <p>Cerrando sesión...</p>
-  </div>
-  
+</div>

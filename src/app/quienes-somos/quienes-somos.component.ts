@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quienes-somos',
   standalone: false,
   templateUrl: './quienes-somos.component.html',
-  styleUrls: ['./quienes-somos.component.css'] // Aquí también corregí el nombre de la propiedad 'styleUrls'
+  styleUrls: ['../../../src/assets/css/landing-global.css'], // Ruta relativa desde landing.component.ts
+  encapsulation: ViewEncapsulation.None // Desactiva la encapsulación
 })
 export class QuienesSomosComponent {
 

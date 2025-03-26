@@ -11,13 +11,13 @@
       <li><a routerLink="/quienes-somos">¿Quiénes somos?</a></li>
       <li><a routerLink="/servicios">Servicios</a></li>
       <li><a routerLink="/contacto">Contacto</a></li>
-      <li><a routerLink="/iniciar-sesion">Iniciar sesión</a></li>
+      <li><a routerLink="/login">Iniciar sesión</a></li>
       <li><a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a></li>
       <li><a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank"><i class="fab fa-instagram"></i></a></li>
       <li><a href="https://www.whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
     </ul>
   </nav>
-  <img src="assets/logo_od.ico" alt="Logo de la empresa" class="logo">
+  <img src="assets/img/logo_od.ico" alt="Logo de la empresa" class="logo">
 </header>
 
 <h1 class="titulo1">Iniciar Sesión</h1>
@@ -35,9 +35,8 @@
   <input type="submit" value="Iniciar Sesión" class="boton-formulario" [disabled]="loginForm.invalid">
 </form>
 
-<div class="loading-overlay" *ngIf="cargando">
-  <img src="assets/logo_od.ico" class="logo">
-
+<div class="loading-overlay" [class.active]="cargando">
+  <img src="assets/img/logo_od.png" alt="Logo animado">
   <p>Redirigiendo al panel...</p>
 </div>
 

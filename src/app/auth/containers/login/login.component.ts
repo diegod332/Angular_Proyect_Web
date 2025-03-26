@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -6,7 +6,8 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['../../../../assets/css/landing-global.css'],
+  encapsulation: ViewEncapsulation.None ,
   standalone: false,
 })
 export class LoginComponent {
@@ -24,18 +25,20 @@ export class LoginComponent {
     });
   }
 
-  iniciarSesion() {
+  iniciarSesion(): void {
     if (this.loginForm.valid) {
+      this.cargando = true; 
       const { email, password } = this.loginForm.value;
-
-      this.cargando = true;
-
+  
       this.authService.login({ email, password }).subscribe({
         next: () => {
-          this.router.navigate(['/admin/panel']);
+          setTimeout(() => {
+            this.cargando = false;
+            this.router.navigate(['/admin/panel']);
+          }, 3000); 
         },
-        error: (error) => {
-          console.error('Error al iniciar sesión:', error);
+        error: (err) => {
+          console.error('Error al iniciar sesión:', err);
           alert('Usuario o contraseña incorrectos.');
           this.cargando = false;
         },

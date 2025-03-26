@@ -1,0 +1,865 @@
+html, body {
+    width: 100%;
+}
+
+/*Tipografia para h1*/
+h1{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: xx-large;
+}
+
+/*Tipografia para h2*/
+h2{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: large;
+}
+
+/*Titulo*/
+.titulo {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flex;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+}
+
+/*Imagen*/  
+img {
+    margin-left: 10px;
+    width: 200px;
+}
+
+/*Barra de menú*/
+.barra {
+    position: relative;
+    background-color: #4682B4;
+    color: #fff;
+    padding: 10px 20px; 
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+  
+nav {
+    display: inline-block;
+    background-color: #4682B4;
+}
+
+li a:hover {
+    background-color: #B0C4DE;
+}
+  
+.logo {
+    position: absolute;
+    top: 50%; 
+    transform: translateY(-50%);
+    right: 20px;
+}
+.bienvenida {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/*Cuerpo*/
+body {
+    font-size: 20px;
+    width: 100%;
+}
+
+p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.titulo1 {
+    text-align: center;
+}
+
+.contenedor-servicios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.espacioquien {
+    width: 20%;
+    text-align: center;
+    padding-bottom: 10%;
+    margin-bottom: 2%;
+    box-sizing: border-box;
+}
+
+.contenedor-servicios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.espacio {
+    width: 20%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+.espacio:hover{
+    background: lightgrey;
+}
+
+.imagen-servicio {
+    width: 1200px;
+    height: 100%;
+    display: block;
+}
+
+.servicio_titulo {
+    position: absolute;
+    font-size:26px;
+    
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    text-align: center;
+    width: 80%;
+     text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000; 
+    border-radius: 5px;
+
+
+}
+
+.servicio_descripcion {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+
+section {
+    padding-top: 2%;
+}
+
+.servicio_titulo {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/*Tamaño para las pantallas*/
+@media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    img {
+        width: 100px;
+    }
+
+    .espacioquien, .espacio {
+        width: 100%;
+        padding-bottom: 5%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    body {
+      font-size: 18px;
+    }
+}
+
+@media (min-width: 1024px) {
+    body {
+      font-size: 20px;
+    }
+}
+
+/*Barra de derechos de autor*/
+footer {
+    background-color: #4682B4; 
+    color: #fff; 
+    padding: 10px 0;
+    text-align: center; 
+    margin: auto;
+    float: none;
+    overflow: auto;
+    position: relative;
+    width: 100%;
+}
+  
+.clinica {
+    width: 1500px;
+    height: 500px;
+}
+
+.formulario-crear-cuenta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.etiqueta-formulario {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.entrada-formulario {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.boton-formulario {
+    width: 50%;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #4682B4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boton-formulario:hover {
+    background-color: #B0C4DE;
+}
+
+.opciones-adicionales {
+    margin-top: 20px;
+}
+
+.opciones-adicionales .opcion {
+    color: #4682B4;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+
+.opciones-adicionales .opcion:hover {
+    text-decoration: underline;
+}
+
+/* Formulario de inicio de sesión */
+.formulario-iniciar-sesion {
+    border: 2px solid #ddd;
+    padding: 20px;
+    width: 300px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-iniciar-sesion .etiqueta-iniciar-sesion {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.formulario-iniciar-sesion .entrada-iniciar-sesion {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.formulario-iniciar-sesion .entrada-iniciar-sesion:focus {
+    border-color: #0055aa;
+    outline: none;
+}
+
+.formulario-iniciar-sesion .boton-iniciar-sesion {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.formulario-iniciar-sesion .boton-iniciar-sesion:hover {
+    background-color: #003377;
+}
+
+/*Formulario de creación de cuenta */
+.formulario-crear-cuenta {
+    border: 2px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-crear-cuenta .etiqueta-formulario {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.formulario-crear-cuenta .entrada-formulario {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.formulario-crear-cuenta .entrada-formulario:focus {
+    border-color: #0066cc;
+    outline: none;
+}
+
+.formulario-crear-cuenta .boton-formulario {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.formulario-crear-cuenta .boton-formulario:hover {
+    background-color: #004c99;
+}
+
+/* Estilos para los mensajes de error */
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.invalido {
+    border-color: red;
+}
+
+/* Estilos para la página de contacto */
+.contacto {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.contacto .informacion-contacto {
+    margin-bottom: 20px;
+}
+
+.contacto .informacion-contacto p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.formulario-contacto {
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-contacto .etiqueta-contacto {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.formulario-contacto .entrada-contacto {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.formulario-contacto .entrada-contacto:focus {
+    border-color: #0066cc;
+    outline: none;
+}
+
+.formulario-contacto .boton-contacto {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.formulario-contacto .boton-contacto:hover {
+    background-color: #004c99;
+}
+
+.mapa {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.mapa iframe {
+    width: 100%;
+    height: 450px;
+    border: 0;
+    border-radius: 10px;
+}
+
+.login-form {
+    width: 340px;
+    margin: 50px auto;
+}
+
+.login-form form {
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+
+.login-form h2 {
+    margin: 0 0 15px;
+}
+
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+
+
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.inicio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+}
+
+/* Inicio */
+.texto-inicio {
+    flex: 1;
+}
+
+.texto-inicio h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.texto-inicio p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.boton-destacado {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: inline-block;
+    background-color: #4682B4;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.1em;
+    border-radius: 5px;
+}
+
+.boton-destacado:hover {
+    background-color: #1E90FF;
+}
+
+.imagen-inicio {
+    flex: 1;
+    padding-top: 20px;
+    max-width: 40%;
+    border-radius: 10px;
+}
+
+/* Estilo general de los botones de redes sociales */
+.redes-sociales {
+    display: flex;
+    justify-content:center; /* Alinea los botones hacia la derecha */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.redes-sociales .social-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #4682B4;
+    padding: 10px 15px;
+    font-size: 15px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s; 
+    margin-right: 10px; /* Agrega margen izquierdo para la separación */
+    margin-top: 6px;
+}
+
+.redes-sociales .social-button i {
+    margin-right: 5px; 
+}
+
+/* Estilos para cada red social */
+.redes-sociales .social-button.facebook {
+    background-color: #3b5998; 
+}
+
+.redes-sociales .social-button.instagram {
+    background-color: #c32aa3; 
+}
+
+.redes-sociales .social-button.whatsapp {
+    background-color: #25d366; 
+}
+
+.redes-sociales .social-button:hover {
+    transform: scale(1.1); 
+}
+
+/* Ejemplo de íconos con FontAwesome */
+.redes-sociales .social-button i {
+    font-size: 1.2em;
+}
+
+/* Contenedor de servicios */
+.contenedor-servicios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+/* Estilo para cada servicio */
+.servicio {
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 10px; 
+    padding: 20px;
+    margin: 10px;
+    width: calc(33.333% - 20px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; 
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo para el título de cada servicio */
+.servicio_titulo {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Estilo para la imagen del servicio */
+.imagen-servicio {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; 
+    margin-bottom: 15px;
+    
+}
+
+/* Estilo para la descripción del servicio */
+.descripcion-servicio {
+    font-size: 1em;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .servicio {
+        width: calc(50% - 20px); /* Dos servicios por fila en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .servicio {
+        width: 100%; /* Un servicio por fila en pantallas muy pequeñas */
+    }
+}
+
+
+
+/* Estilo para las secciones */
+section {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section h3 {
+    color: black;
+    margin-bottom: 10px;
+}
+
+section p {
+    margin-bottom: 10px;
+}
+
+section ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+/* Estilo para los miembros del equipo */
+.team-member {
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.team-member h4 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: black;
+    margin-bottom: 5px;
+}
+
+.team-member p {
+    margin: 0;
+}
+
+
+/* Estilos para el modal */
+dialog {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 340px;
+    max-width: 100%;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.dialog-content {
+    font-size: 1em;
+    margin-bottom: 20px;
+    
+}
+
+.dialog-cost {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.dialog-close-button {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dialog-close-button:hover {
+    background-color: #ff4d4d;
+}
+
+
+
+/* Estilo para los testimonios */
+blockquote {
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: #fff;
+    border-left: 5px solid #007bff;
+    font-style: italic;
+}
+
+blockquote footer {
+    text-align: right;
+    color: black;
+}
+.redes_ss {
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    
+    
+    
+
+}
+
+.infor_macion {
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    padding-top: 10px;
+
+  
+}
+
+
+.rating {
+    direction: rtl;
+    display: inline-block;
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    color: #d3d3d3; /* Color de las estrellas desactivadas */
+    font-size: 2em;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffcc00; /* Color de las estrellas al pasar el mouse */
+}
+
+.rating input[type="radio"]:checked ~ label {
+    color: #ffcc00; /* Color de las estrellas seleccionadas */
+}
+
+.user-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.stars {
+    display: inline-block;
+    font-size: 30px;
+    color: lightgray;
+}
+
+.stars .filled {
+    color: gold;
+}
+
+
+
+.titulo h3 {
+    font-size: 32px; /* Tamaño grande */
+    font-family: 'Arial', sans-serif; /* Tipo de letra */
+    font-weight: bold; /* Negrita */
+    color: #333; /* Color oscuro */  
+    margin: 20px 0; /* Espaciado superior e inferior */
+  }
+  
+  h2 {
+    font-size: 25px; /* Tamaño más grande */
+    font-family: 'Verdana', sans-serif; /* Otro tipo de letra */
+    font-weight: bold; /* Negrita */
+    color: #000000; /* Color más vibrante */
+ 
+    margin: 20px 0; /* Espaciado superior e inferior */
+  }
+  
+/* Estilos para la pantalla de carga */
+.loading-overlay {
+    visibility: hidden; /* Oculto por defecto */
+    opacity: 0; /* Totalmente transparente */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: visibility 0s, opacity 0.3s ease-in-out; /* Transición suave */
+  }
+  
+  /* Mostrar la pantalla de carga */
+  .loading-overlay.active {
+    visibility: visible; /* Visible */
+    opacity: 1; /* Totalmente opaco */
+  }
+  
+  /* Logo animado */
+  .loading-overlay img {
+    width: 150px; /* Ajusta el tamaño del logo */
+    height: auto;
+    animation: spin 2s linear infinite; /* Aplica la animación */
+    margin-bottom: 20px;
+  }
+  
+  /* Animación de rotación */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

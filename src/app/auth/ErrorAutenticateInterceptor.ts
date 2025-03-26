@@ -17,7 +17,6 @@ export class ErrorAutenticateInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         return next.handle(req).pipe(
             catchError((error: any) => {
-                //console.log("request que se envia",req);
                 if (error.status == 401) {
                     this._globalService.showAlert.next({
                         msj: `Por seguridad la sesión ha expirado, lo redirigiremos al inicio de sesión.`,

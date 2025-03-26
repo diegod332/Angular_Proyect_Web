@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-servicios',
   standalone: false,
-  
   templateUrl: './servicios.component.html',
-  styleUrl: './servicios.component.css'
+  styleUrls: ['../../../src/assets/css/landing-global.css'], // Ruta relativa desde landing.component.ts
+  encapsulation: ViewEncapsulation.None // Desactiva la encapsulación
+  
 })
 export class ServiciosComponent {
   openModal(modalId: number) {

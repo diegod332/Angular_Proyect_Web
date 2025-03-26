@@ -1,6 +1,8 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
+import { HttpClientModule } from '@angular/common/http';
+
 import {
   LineController,
   LineElement,
@@ -15,6 +17,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import { AuthService } from '../../../auth/services/auth.service';
 
 // Registrar los componentes necesarios
 Chart.register(
@@ -35,7 +38,7 @@ Chart.register(
 @Component({
   selector: 'app-panel',
   templateUrl: './panel.component.html',
-  styleUrls: ['./panel.component.css'],
+  styleUrls: ['../../admin.component.css'],
   standalone: false,
 })
 export class PanelComponent implements AfterViewInit {
@@ -56,7 +59,7 @@ export class PanelComponent implements AfterViewInit {
     { id: 'genderChart', title: 'Distribución de Género', icon: 'fas fa-venus-mars' },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {} // Inyecta AuthService
 
   ngAfterViewInit(): void {
     this.inicializarGraficos();
@@ -77,11 +80,11 @@ export class PanelComponent implements AfterViewInit {
               data: {
                 labels: ['Enero', 'Febrero', 'Marzo', 'Abril'],
                 datasets: [{
-                  pointRadius: 6,        // Tamaño del punto (círculo)
-                  pointHoverRadius: 8,   // Tamaño al pasar el mouse
-                  borderWidth: 3,         // Grosor de la línea
+                  pointRadius: 6,        
+                  pointHoverRadius: 8, 
+                  borderWidth: 1,         
                   label: 'Citas',
-                  data: [10, 20, 30, 40],
+                  data: [5, 10, 30, 15, 20],
                   borderColor: 'rgba(75, 192, 192, 1)',
                   fill: false
                 }]
@@ -143,9 +146,14 @@ export class PanelComponent implements AfterViewInit {
 
   cerrarSesion(): void {
     this.cargando = true;
-    setTimeout(() => {
-      localStorage.removeItem('usuario');
-      this.router.navigate(['/login']);
-    }, 700);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']); 
+      },
+      error: (err: unknown) => {
+        console.error('Error al cerrar sesión:', err);
+        this.cargando = false;
+      },
+    });
   }
 }

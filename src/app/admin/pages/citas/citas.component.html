@@ -1,0 +1,160 @@
+<div class="d-flex">
+  <div class="sidebar-custom">
+    <div>
+      <div class="sidebar-header">
+        <img src="assets/img/logo_od.ico" alt="Logo de la empresa">
+        <h4>Odontología Integral</h4>
+        <div id="usuario"></div>
+      </div>
+      <nav class="nav flex-column">
+        <a routerLink="/admin/panel" routerLinkActive="active" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+        <a routerLink="/gestionar-citas" routerLinkActive="active" class="nav-link" id="activo">Citas</a>
+        <a routerLink="/gestionar-citas-programadas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar-check"></i> Citas Programadas</a>
+        <a routerLink="/gestionar-inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
+        <a routerLink="/gestionar-servicios" routerLinkActive="active" class="nav-link"><i class="fas fa-briefcase-medical"></i> Servicios</a>
+        <a routerLink="/gestionar-clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+        <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      &copy; 2024 Odontología Integral. Todos los derechos reservados.
+    </div>
+  </div>
+
+  <div class="content flex-fill">
+    <h1>Gestionar citas</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <input type="text" class="form-control w-25" placeholder="Buscar...">
+      <div>
+        <button class="btn btn-primary mr-2" (click)="abrirModalNuevaCita()">Nueva Cita</button>
+      </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre Completo</th>
+          <th>Fecha de la cita</th>
+          <th>Hora de la cita</th>
+          <th>Servicio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaCitas">
+        <!-- Las filas de citas se generarán dinámicamente aquí -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal para nueva cita -->
+<div class="modal fade" id="nuevoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="nuevoModalLabel">Nueva Cita</h5>
+        <button type="button" class="btn-close" (click)="cerrarModalNuevaCita()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="programarCitaForm">
+          <div class="form-group">
+            <label for="client_id">ID del Cliente</label>
+            <input type="text" class="form-control" id="client_id" required>
+          </div>
+          <div class="form-group">
+            <label for="appointment_date">Fecha de la cita</label>
+            <input type="date" class="form-control" id="appointment_date" required>
+          </div>
+          <div class="form-group">
+            <label for="appointment_time">Hora de la cita</label>
+            <input type="time" class="form-control" id="appointment_time" required>
+          </div>
+          <div class="form-group">
+            <label for="service_id">ID del Servicio</label>
+            <input type="text" class="form-control" id="service_id" required>
+          </div>
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <select class="form-control" id="estado" required>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Finalizado">Finalizado</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Agregar Cita</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para editar cita -->
+<div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editarModalLabel">Editar Cita</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formEditar">
+          <input type="hidden" id="editId">
+          <div class="form-group">
+            <label for="editClient_id">ID del Cliente</label>
+            <input type="text" class="form-control" id="editClient_id" required>
+          </div>
+          <div class="form-group">
+            <label for="editAppointment_date">Fecha de la cita</label>
+            <input type="date" class="form-control" id="editAppointment_date" required>
+          </div>
+          <div class="form-group">
+            <label for="editAppointment_time">Hora de la cita</label>
+            <input type="time" class="form-control" id="editAppointment_time" required>
+          </div>
+          <div class="form-group">
+            <label for="editService_id">ID del Servicio</label>
+            <input type="text" class="form-control" id="editService_id" required>
+          </div>
+          <div class="form-group">
+            <label for="editEstado">Estado</label>
+            <select class="form-control" id="editEstado" required>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Finalizado">Finalizado</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para ver detalles de la cita -->
+<div class="modal fade" id="verModal" tabindex="-1" role="dialog" aria-labelledby="verModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="verModalLabel">Detalles de la Cita</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Nombre Completo: {{ detalleNombre }}</p>
+        <p>Fecha de la cita: {{ detalleFecha }}</p>
+        <p>Hora de la cita: {{ detalleHora }}</p>
+        <p>Servicio: {{ detalleServicio }}</p>
+        <p>Estado: {{ detalleEstado }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="loading" class="loading" *ngIf="cargando">
+  <div class="spinner-border text-primary" role="status"></div>
+  <p>Cerrando sesión...</p>
+</div>

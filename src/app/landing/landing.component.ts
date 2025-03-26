@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-landing',
   standalone: false,
   templateUrl: './landing.component.html',
-  styleUrl: './landing.component.css'
+  styleUrls: ['../../../src/assets/css/landing-global.css'], // Ruta relativa desde landing.component.ts
+  encapsulation: ViewEncapsulation.None // Desactiva la encapsulación
+
+
 })
 export class LandingComponent {
 
