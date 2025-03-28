@@ -148,7 +148,7 @@ export class PanelComponent implements AfterViewInit {
     this.cargando = true;
     this.authService.logout().subscribe({
       next: () => {
-        this.router.navigate(['/login']); 
+        this.router.navigate(['/login']);   
       },
       error: (err: unknown) => {
         console.error('Error al cerrar sesión:', err);

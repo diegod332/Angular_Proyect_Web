@@ -1,101 +1,132 @@
 <div class="d-flex">
-    <div class="sidebar-custom">
-      <div>
-        <div class="sidebar-header">
-          <img src="assets/img/logo_od.ico" alt="Logo de la empresa">
-          <h4>Odontología Integral</h4>
-          <div id="usuario"></div>
-        </div>
-        <nav class="nav flex-column">
-          <a routerLink="/admin/panel" routerLinkActive="active" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
-          <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
-          <a routerLink="/admin/citas-programadas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar-check"></i> Citas Programadas</a>
-          <a routerLink="/admin/inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
-          <a routerLink="/admin/servicios-dentales" routerLinkActive="active" class="nav-link" id="activo">Servicios</a>
-          <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
-          <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-        </nav>
+  <div class="sidebar-custom">
+    <div>
+      <div class="sidebar-header">
+        <img src="assets/img/logo_od.ico" alt="Logo de la empresa">
+        <h4>Odontología Integral</h4>
+        <div id="usuario"></div>
       </div>
-      <div class="sidebar-footer">
-        &copy; 2024 Odontología Integral. Todos los derechos reservados.
-      </div>
+      <nav class="nav flex-column">
+        <a routerLink="/admin/panel" routerLinkActive="active" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+        <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
+        <a routerLink="/admin/inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
+        <a routerLink="/admin/servicios-dentales" routerLinkActive="active" class="nav-link" id="activo">Servicios</a>
+        <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+        <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      </nav>
     </div>
-  
-    <div class="content flex-fill">
-      <h1>Gestionar servicios</h1>
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <input type="text" class="form-control w-25" placeholder="Buscar...">
-        <button class="btn btn-primary" (click)="abrirModalNuevo()">Nuevo Servicio</button>
-      </div>
-  
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let servicio of servicios">
-            <td>{{ servicio.serviceName }}</td>
-            <td>{{ servicio.price | currency }}</td>
-            <td>
-              <button class="btn btn-warning btn-sm" (click)="abrirModalEditar(servicio)">Editar</button>
-              <button class="btn btn-danger btn-sm" (click)="eliminarServicio(servicio._id)">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="sidebar-footer">
+      &copy; 2024 Odontología Integral. Todos los derechos reservados.
     </div>
   </div>
-  
-  <!-- Modal para agregar o editar servicio -->
-  <div class="modal fade" id="servicioModal" tabindex="-1" role="dialog" aria-labelledby="servicioModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="servicioModalLabel">{{ esEditar ? 'Editar Servicio' : 'Nuevo Servicio' }}</h5>
-          <button type="button" class="close" (click)="cerrarModal()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form (ngSubmit)="guardarServicio()">
-            <div class="form-group">
-              <label for="nombreServicio">Nombre del Servicio</label>
-              <input type="text" id="nombreServicio" [(ngModel)]="servicioActual.serviceName" name="serviceName" class="form-control" required>
+
+  <div class="content flex-fill">
+    <h1>Gestionar servicios</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <!-- Barra de búsqueda -->
+      <input
+        type="text"
+        class="form-control w-25"
+        placeholder="Buscar..."
+        [(ngModel)]="searchTerm"
+      />
+      <button class="btn btn-primary" (click)="abrirModalNuevo()">Nuevo Servicio</button>
+    </div>
+
+    <!-- Tabla de servicios -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let servicio of filteredServicios">
+          <td>{{ servicio.serviceName }}</td>
+          <td>{{ servicio.price | currency }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="abrirModalEditar(servicio)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarServicio(servicio._id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal para agregar o editar servicio -->
+<div class="modal fade" id="servicioModal" tabindex="-1" role="dialog" aria-labelledby="servicioModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="servicioModalLabel">{{ esEditar ? 'Editar Servicio' : 'Nuevo Servicio' }}</h5>
+        <button type="button" class="close" (click)="cerrarModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="guardarServicio()">
+          <div class="form-group">
+            <label for="nombreServicio">Nombre del Servicio</label>
+            <input
+              type="text"
+              id="nombreServicio"
+              [(ngModel)]="servicioActual.serviceName"
+              name="serviceName"
+              class="form-control"
+              required
+              minlength="3"
+              title="El nombre solo puede contener letras y espacios."
+            />
+            <div *ngIf="servicioActual.serviceName && !esNombreValido(servicioActual.serviceName)" class="text-danger">
+              El nombre solo puede contener letras y espacios.
             </div>
-            <div class="form-group">
-              <label for="precioServicio">Precio</label>
-              <input type="number" id="precioServicio" [(ngModel)]="servicioActual.price" name="price" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="precioServicio">Precio</label>
+            <input
+              type="number"
+              id="precioServicio"
+              [(ngModel)]="servicioActual.price"
+              name="price"
+              class="form-control"
+              required
+              min="1"
+              max="100000"
+            />
+            <div *ngIf="servicioActual.price < 1 || servicioActual.price > 100000" class="text-danger">
+              El precio debe estar entre 1 y 100000.
             </div>
-            <button type="submit" class="btn btn-primary">{{ esEditar ? 'Guardar Cambios' : 'Agregar Servicio' }}</button>
-          </form>
-        </div>
+          </div>
+          <button type="submit" class="btn btn-primary">{{ esEditar ? 'Guardar Cambios' : 'Agregar Servicio' }}</button>
+        </form>
       </div>
     </div>
   </div>
-  
-  <!-- Modal para ver detalles del servicio -->
-  <div class="modal fade" id="verModal" tabindex="-1" role="dialog" aria-labelledby="verModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="verModalLabel">Detalles del Servicio</h5>
-          <button type="button" class="close" (click)="cerrarModal()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p><strong>Nombre:</strong> {{ servicioActual.serviceName }}</p>
-          <p><strong>Precio:</strong> {{ servicioActual.price | currency }}</p>
-        </div>
+</div>
+
+<!-- Modal para ver detalles del servicio -->
+<div class="modal fade" id="verModal" tabindex="-1" role="dialog" aria-labelledby="verModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="verModalLabel">Detalles del Servicio</h5>
+        <button type="button" class="close" (click)="cerrarModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Nombre:</strong> {{ servicioActual.serviceName }}</p>
+        <p><strong>Precio:</strong> {{ servicioActual.price | currency }}</p>
       </div>
     </div>
   </div>
-  
-  <div id="loading" class="loading" *ngIf="cargando">
-    <div class="spinner-border text-primary" role="status"></div>
-    <p>Cerrando sesión...</p>
-  </div>
+</div>
+
+<!-- Indicador de carga -->
+<div id="loading" class="loading" *ngIf="cargando">
+  <div class="spinner-border text-primary" role="status"></div>
+  <p>Cargando...</p>
+</div>
