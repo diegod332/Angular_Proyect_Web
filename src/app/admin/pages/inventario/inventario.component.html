@@ -4,6 +4,7 @@
       <div class="sidebar-header">
         <img src="assets/img/logo_od.ico" alt="Logo de la empresa">
         <h4>Odontología Integral</h4>
+<<<<<<< HEAD
       </div>
       <nav class="nav flex-column">
         <h5 class="sidebar-section-title">Navegación</h5>
@@ -16,21 +17,49 @@
         <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
         
         <h5 class="sidebar-section-title">Cuenta</h5>
+=======
+        <div id="usuario"></div>
+      </div>
+      <nav class="nav flex-column">
+        <a routerLink="/admin/panel" routerLinkActive="active" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+        <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
+        <a routerLink="/admin/inventario" routerLinkActive="active" class="nav-link" id="activo">Inventario</a>
+        <a routerLink="/admin/servicios-dentales" routerLinkActive="active" class="nav-link"><i class="fas fa-briefcase-medical"></i> Servicios</a>
+        <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+>>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
         <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
       </nav>
     </div>
     <div class="sidebar-footer">
+<<<<<<< HEAD
       &copy; 2025 Odontología Integral. Todos los derechos reservados.
+=======
+      &copy; 2024 Odontología Integral. Todos los derechos reservados.
+>>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
     </div>
   </div>
 
   <div class="content flex-fill">
     <h1>Gestionar inventario</h1>
     <div class="d-flex justify-content-between align-items-center mb-3">
+<<<<<<< HEAD
       <input type="text" class="form-control w-25" placeholder="Buscar...">
       <button class="btn btn-primary" (click)="abrirModalNuevo()">Nuevo Insumo</button>
     </div>
 
+=======
+      <!-- Barra de búsqueda -->
+      <input
+        type="text"
+        class="form-control w-25"
+        placeholder="Buscar..."
+        [(ngModel)]="searchTerm"
+      />
+      <button class="btn btn-primary" (click)="abrirModalNuevo()">Nuevo Insumo</button>
+    </div>
+
+    <!-- Tabla de insumos -->
+>>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
     <table class="table table-striped">
       <thead>
         <tr>
@@ -42,19 +71,29 @@
         </tr>
       </thead>
       <tbody>
+<<<<<<< HEAD
         <tr *ngFor="let insumo of insumos">
           <td>{{ insumo.name }}</td>
           <td>{{ insumo.quantity }}</td>
           <td>{{ insumo.expirationDate | date }}</td>
+=======
+        <tr *ngFor="let insumo of filteredInsumos">
+          <td>{{ insumo.name }}</td>
+          <td>{{ insumo.quantity }}</td>
+          <td>{{ insumo.expirationDate | date:'yyyy-MM-dd' }}</td>
+>>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
           <td>{{ insumo.price | currency }}</td>
           <td>
             <button class="btn btn-warning btn-sm" (click)="abrirModalEditar(insumo)">Editar</button>
             <button class="btn btn-danger btn-sm" (click)="eliminarInsumo(insumo._id)">Eliminar</button>
           </td>
         </tr>
+<<<<<<< HEAD
         <tr *ngIf="insumos.length === 0">
           <td colspan="5" class="text-center">No hay insumos registrados.</td>
         </tr>
+=======
+>>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
       </tbody>
     </table>
   </div>
@@ -62,6 +101,7 @@
 
 <!-- Modal para agregar o editar insumo -->
 <div class="modal fade" id="insumoModal" tabindex="-1" role="dialog" aria-labelledby="insumoModalLabel" aria-hidden="true">
+<<<<<<< HEAD
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <!-- Encabezado del modal -->
@@ -113,6 +153,82 @@
         <button type="submit" class="btn btn-success" (click)="guardarInsumo()">
           <i class="fas fa-save"></i> {{ esEditar ? 'Guardar Cambios' : 'Agregar Insumo' }}
         </button>
+=======
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="insumoModalLabel">{{ esEditar ? 'Editar Insumo' : 'Nuevo Insumo' }}</h5>
+        <button type="button" class="btn-close ms-auto" (click)="cerrarModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="guardarInsumo()">
+          <div class="form-group">
+            <label for="nombreInsumo">Nombre</label>
+            <input
+              type="text"
+              id="nombreInsumo"
+              [(ngModel)]="insumoActual.name"
+              name="name"
+              class="form-control"
+              required
+              minlength="3"
+              title="El nombre solo puede contener letras y espacios."
+            />
+            <div *ngIf="insumoActual.name && !esNombreValido(insumoActual.name)" class="text-danger">
+              El nombre solo puede contener letras y espacios.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cantidadInsumo">Cantidad</label>
+            <input
+              type="number"
+              id="cantidadInsumo"
+              [(ngModel)]="insumoActual.quantity"
+              name="quantity"
+              class="form-control"
+              required
+              min="1"
+              max="100000"
+            />
+            <div *ngIf="insumoActual.quantity < 1 || insumoActual.quantity > 100000" class="text-danger">
+              La cantidad debe estar entre 1 y 100000.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="caducidadInsumo">Caducidad</label>
+            <input
+              type="date"
+              id="expirationDate"
+              class="form-control"
+              [(ngModel)]="insumoActual.expirationDate"
+              name="expirationDate"
+              required
+              [min]="minDate"
+            />
+            <div *ngIf="insumoActual.expirationDate < minDate" class="text-danger">
+              La fecha de caducidad debe ser posterior a la fecha actual.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="precioInsumo">Precio</label>
+            <input
+              type="number"
+              id="precioInsumo"
+              [(ngModel)]="insumoActual.price"
+              name="price"
+              class="form-control"
+              required
+              min="1"
+              max="100000"
+              step="0.01"
+            />
+            <div *ngIf="insumoActual.price < 1 || insumoActual.price > 100000" class="text-danger">
+              El precio debe estar entre 1 y 100000.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">{{ esEditar ? 'Guardar Cambios' : 'Agregar Insumo' }}</button>
+        </form>
+>>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
       </div>
     </div>
   </div>

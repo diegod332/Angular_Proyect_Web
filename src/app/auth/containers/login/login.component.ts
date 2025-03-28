@@ -6,7 +6,12 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+<<<<<<< HEAD
   styleUrls: ['./login.component.css'],
+=======
+  styleUrls: ['../../../../assets/css/landing-global.css'],
+  encapsulation: ViewEncapsulation.None,
+>>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
   standalone: false,
 })
 export class LoginComponent {
@@ -26,15 +31,21 @@ export class LoginComponent {
 
   iniciarSesion(): void {
     if (this.loginForm.valid) {
-      this.cargando = true; 
+      this.cargando = true;
       const { email, password } = this.loginForm.value;
-  
+
       this.authService.login({ email, password }).subscribe({
-        next: () => {
-          setTimeout(() => {
-            this.cargando = false;
-            this.router.navigate(['/admin/panel']);
-          }, 3000); 
+        next: (response: any) => {
+          const userRole = this.authService.getUserRole(); // Obtiene el rol del usuario autenticado
+
+          // Verificar el rol del usuario
+          if (userRole === 'admin') {
+            this.router.navigate(['/admin/panel']); // Redirigir al panel administrativo
+          } else {
+            alert('No tienes permiso para acceder al panel administrativo.');
+          }
+
+          this.cargando = false;
         },
         error: (err) => {
           console.error('Error al iniciar sesión:', err);

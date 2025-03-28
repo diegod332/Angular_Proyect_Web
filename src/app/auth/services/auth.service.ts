@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
   providedIn: 'root',
 })
 export class AuthService {
-
+  
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly USER_CURRENT = 'USER_CURRENT';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
@@ -26,12 +26,15 @@ export class AuthService {
    * @param user Objeto con email y password.
    * @returns Observable<boolean>
    */
-  login(user: { email: string, password: string }): Observable<boolean> {
+  login(user: { email: string; password: string }): Observable<boolean> {
     console.log('Iniciando login con:', user); // Depuración
     return this.http.post<any>(`${environment.api.authApis}/login`, user).pipe(
-      tap((tokens: Tokens) => {
-        console.log('Tokens recibidos en login:', tokens); // Depuración
-        this.storeTokens(tokens); // Guarda los tokens y los datos del usuario
+      tap((response: any) => {
+        console.log('Respuesta del login:', response); // Depuración
+        const { token, refreshToken, user: userData } = response;
+
+        // Guarda los tokens y los datos del usuario
+        this.storeTokens({ token, refreshToken, user: userData });
       }),
       mapTo(true),
       catchError((error) => {
@@ -39,6 +42,46 @@ export class AuthService {
         return throwError(() => error);
       })
     );
+  }
+
+  /**
+   * Obtiene los datos del usuario autenticado desde el localStorage.
+   * @returns Objeto con los datos del usuario o null si no está autenticado.
+   */
+  getUser() {
+    const user = localStorage.getItem(this.USER_CURRENT);
+    return user ? JSON.parse(user) : null; // Devuelve los datos del usuario o `null` si no existe
+  }
+
+  /**
+   * Obtiene el rol del usuario autenticado.
+   * @returns string | null
+   */
+  getUserRole(): string | null {
+    const user = this.getUser();
+    return user ? user.role : null; // Devuelve el rol del usuario o `null` si no está autenticado
+  }
+
+  /**
+   * Verifica si el usuario está autenticado.
+   * @returns boolean
+   */
+  isLoggedIn(): boolean {
+    const token = this.getJwtToken();
+    return !!token && !this.isTokenExpired(); // Verifica que el token exista y no haya expirado
+  }
+
+  /**
+   * Verifica si el token JWT ha expirado.
+   * @returns boolean
+   */
+  isTokenExpired(): boolean {
+    const token = this.getJwtToken();
+    if (!token) return true;
+  
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
   }
 
   /**
@@ -63,33 +106,6 @@ export class AuthService {
   }
 
   /**
-   * Registra un nuevo usuario.
-   * @param data Datos del usuario a registrar.
-   * @returns Observable<boolean>
-   */
-  register(data: any): Observable<boolean> {
-    const url = `${environment.api.authApis}/register`;
-    return this.http.post<any>(url, data);
-  }
-  
-  isTokenExpired(): boolean {
-    const token = this.getJwtToken();
-    if (!token) return true;
-  
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const now = Math.floor(Date.now() / 1000);
-    return payload.exp < now;
-  }
-
-  /**
-   * Verifica si el usuario está autenticado.
-   * @returns boolean
-   */
-  isLoggedIn(): boolean {
-    const token = this.getJwtToken();
-    return !!token; // Devuelve true si el token existe, false si no
-  }
-  /**
    * Renueva el token de autenticación usando el refresh token.
    * @returns Observable<Tokens>
    */
@@ -105,6 +121,16 @@ export class AuthService {
         return throwError(() => error);
       })
     );
+  }
+
+  /**
+   * Registra un nuevo usuario.
+   * @param data Datos del usuario a registrar.
+   * @returns Observable<boolean>
+   */
+  register(data: any): Observable<boolean> {
+    const url = `${environment.api.authApis}/register`;
+    return this.http.post<any>(url, data);
   }
 
   /**
@@ -131,14 +157,6 @@ export class AuthService {
   private doLogoutUser(): void {
     this.loggedUser = '';
     this.removeTokens();
-  }
-
-  /**
-   * Guarda el token JWT en el localStorage.
-   * @param jwt Token JWT.
-   */
-  private storeJwtToken(jwt: string): void {
-    localStorage.setItem(this.JWT_TOKEN, jwt);
   }
 
   /**

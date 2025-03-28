@@ -200,7 +200,13 @@ export class PanelComponent implements AfterViewInit, OnInit {
   cerrarSesion(): void {
     this.cargando = true;
     this.authService.logout().subscribe({
+<<<<<<< HEAD
       next: () => this.router.navigate(['/login']), 
+=======
+      next: () => {
+        this.router.navigate(['/login']);   
+      },
+>>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
       error: (err: unknown) => {
         console.error('Error al cerrar sesión:', err);
         this.cargando = false;
