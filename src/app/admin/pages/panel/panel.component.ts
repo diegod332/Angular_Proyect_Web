@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { HttpClientModule } from '@angular/common/http';
@@ -41,28 +41,34 @@ Chart.register(
   styleUrls: ['../../admin.component.css'],
   standalone: false,
 })
-export class PanelComponent implements AfterViewInit {
-  cargando: boolean = false;
+export class PanelComponent implements AfterViewInit, OnInit {
+  cargando: boolean = false; // Indicador de carga
+  cards: any[] = []; // Datos de las tarjetas
+  charts: any[] = []; // Datos de los gráficos
 
-  // Tarjetas
-  cards = [
-    { title: 'Citas', value: 105, bgClass: 'bg-primary' },
-    { title: 'Pacientes', value: 105, bgClass: 'bg-info' },
-    { title: 'Servicios', value: 100, bgClass: 'bg-success' },
-  ];
+  constructor(private authService: AuthService, private router: Router) {}
 
-  // Gráficos
-  charts = [
-    { id: 'myChart', title: 'Estadísticas', icon: 'fas fa-chart-line' },
-    { id: 'pieChart', title: 'Servicios Usados', icon: 'fas fa-chart-pie' },
-    { id: 'barChart', title: 'Rango de Edades', icon: 'fas fa-chart-bar' },
-    { id: 'genderChart', title: 'Distribución de Género', icon: 'fas fa-venus-mars' },
-  ];
-
-  constructor(private router: Router, private authService: AuthService) {} // Inyecta AuthService
+  ngOnInit(): void {
+    this.obtenerDatosPanel();
+  }
 
   ngAfterViewInit(): void {
     this.inicializarGraficos();
+  }
+
+  obtenerDatosPanel(): void {
+    // Simulación de datos para las tarjetas y gráficos
+    this.cards = [
+      { title: 'Clientes', value: 120, bgClass: 'bg-primary' },
+      { title: 'Citas', value: 45, bgClass: 'bg-success' },
+      { title: 'Servicios', value: 15, bgClass: 'bg-warning' },
+      { title: 'Inventario', value: 200, bgClass: 'bg-danger' },
+    ];
+
+    this.charts = [
+      { title: 'Citas por Mes', icon: 'fas fa-chart-line', id: 'chartCitas' },
+      { title: 'Servicios más Solicitados', icon: 'fas fa-chart-pie', id: 'chartServicios' },
+    ];
   }
 
   inicializarGraficos(): void {
@@ -74,6 +80,53 @@ export class PanelComponent implements AfterViewInit {
         let config: any;
 
         switch (chart.id) {
+          case 'chartCitas':
+            config = {
+              type: 'line',
+              data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+                datasets: [{
+                  label: 'Citas',
+                  data: [10, 20, 15, 25, 30],
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderWidth: 2,
+                  fill: true,
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false, // Permitir ajustar el tamaño
+                plugins: {
+                  legend: { display: true },
+                  tooltip: { enabled: true }
+                }
+              }
+            };
+            break;
+
+          case 'chartServicios':
+            config = {
+              type: 'pie',
+              data: {
+                labels: ['Limpieza', 'Ortodoncia', 'Endodoncia', 'Blanqueamiento'],
+                datasets: [{
+                  label: 'Servicios',
+                  data: [40, 25, 20, 15],
+                  backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0']
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false, // Permitir ajustar el tamaño
+                plugins: {
+                  legend: { display: true },
+                  tooltip: { enabled: true }
+                }
+              }
+            };
+            break;
+
           case 'myChart':
             config = {
               type: 'line',
@@ -136,7 +189,7 @@ export class PanelComponent implements AfterViewInit {
         }
 
         if (config) {
-          new Chart(ctx, { ...config, options: { responsive: true } });
+          new Chart(ctx, config);
         }
       } else {
         console.warn(`No se pudo inicializar el gráfico con id ${chart.id}`);
@@ -147,9 +200,7 @@ export class PanelComponent implements AfterViewInit {
   cerrarSesion(): void {
     this.cargando = true;
     this.authService.logout().subscribe({
-      next: () => {
-        this.router.navigate(['/login']); 
-      },
+      next: () => this.router.navigate(['/login']), 
       error: (err: unknown) => {
         console.error('Error al cerrar sesión:', err);
         this.cargando = false;

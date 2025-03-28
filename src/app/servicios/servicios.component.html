@@ -1,148 +1,113 @@
-<div class="titulo">
-  <h3>Odontologia Integral</h3>
-</div>
-<h2>Consultorio dental de la Dra. Nancy Sánchez</h2>
+<header class="masthead">
+  <nav class="navbar">
+    <div class="container">
+      <!-- Logo y título del sitio -->
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/logo_od.png" alt="Logo Odontología Integral" class="navbar-logo">
+        <span>Odontología Integral</span>
+      </a>
 
-<header class="barra">
-  <nav>
-    <ul>
-      <li><a routerLink="/">Inicio</a></li>
-      <li><a routerLink="/quienes-somos">¿Quiénes somos?</a></li>
-      <li><a routerLink="/servicios">Servicios</a></li>
-      <li><a routerLink="/contacto">Contacto</a></li>
-      <li><a routerLink="/login">Iniciar sesión</a></li>
-      <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a></li>
-      <li><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-      <li><a href="https://www.whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-    </ul>
+      <!-- Opciones de navegación -->
+      <ul class="navbar-menu">
+        <li><a routerLink="/inicio">Inicio</a></li>
+        <li><a routerLink="/quienes-somos">¿Quiénes somos?</a></li>
+        <li><a routerLink="/servicios">Servicios</a></li>
+        <li><a routerLink="/contacto">Contacto</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank"><i
+              class="fab fa-facebook"></i></a></li>
+        <li><a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank"><i
+              class="fab fa-instagram"></i></a></li>
+        <li><a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+        <li><a routerLink="/login">Iniciar sesión</a></li>
+      </ul>
+    </div>
   </nav>
-  <img src="assets/img/logo_od.ico" class="logo">
+
+  <!-- Título en el encabezado -->
+  <div class="container text-center">
+    <h1 class="masthead-title">Nuestros Servicios</h1>
+  </div>
 </header>
 
-<div class="container">
-  <h1 class="titulo1">Servicios</h1>
-  <h1 style="text-align: center;">Selecciona un servicio para obtener detalles</h1>
-
-  <div class="contenedor-servicios">
-    <!-- Limpieza dental -->
-    <section class="espacio" (click)="openModal(1)">
-      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/img/limpieza_dental.jpg" alt="Limpieza dental">
-      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Limpieza dental</h2>
-      <p>Para mantener una higiene bucal óptima, cepíllate los dientes al menos dos veces al día y usa hilo dental diariamente.</p>
-    </section>
-
-    <!-- Modal Limpieza dental -->
-    <dialog id="modal1">
-      <h3 class="dialog-title">Limpieza dental</h3>
-      <p class="dialog-content">Una limpieza dental profesional ayuda a eliminar la placa y el sarro acumulado en los dientes y debajo de las encías.</p>
-      <p class="dialog-cost">Costo $150.</p>
-      <button class="dialog-close-button" (click)="closeModal(1)">Cerrar</button>
-    </dialog>
-
-    <!-- Extracción de muelas -->
-    <section class="espacio" (click)="openModal(2)">
-      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/img/extraccion.jpg" alt="Extracción de muelas">
-      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Extracción de muelas</h2>
-      <p>Después de una extracción, sigue las instrucciones de tu dentista para evitar infecciones y facilitar la recuperación.</p>
-    </section>
-
-    <!-- Modal Extracción de muelas -->
-    <dialog id="modal2">
-      <h3 class="dialog-title">Extracción de muelas</h3>
-      <p class="dialog-content">La extracción de muelas, especialmente las del juicio, es un procedimiento común para evitar problemas futuros como infecciones, dolor, y daño a los dientes adyacentes.</p>
-      <p class="dialog-cost">Costo $300.</p>
-      <button class="dialog-close-button" (click)="closeModal(2)">Cerrar</button>
-    </dialog>
-
-    <!-- Ortodoncia -->
-    <section class="espacio" (click)="openModal(3)">
-      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/img/ortodoncia.jpg" alt="Ortodoncia">
-      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Ortodoncia</h2>
-      <p>Usa tus retenedores según las indicaciones de tu ortodoncista para mantener los resultados después del tratamiento.</p>
-    </section>
-
-    <!-- Modal Ortodoncia -->
-    <dialog id="modal3">
-      <h3 class="dialog-title">Ortodoncia</h3>
-      <p class="dialog-content">La ortodoncia se encarga de corregir problemas de alineación dental y de mordida mediante el uso de brackets, alineadores y otros dispositivos.</p>
-      <p class="dialog-cost">Costo $5000.</p>
-      <button class="dialog-close-button" (click)="closeModal(3)">Cerrar</button>
-    </dialog>
-
-    <!-- Implantes -->
-    <section class="espacio" (click)="openModal(4)">
-      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/img/implante.jpg" alt="Implantes">
-      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Implantes</h2>
-      <p>Evita masticar alimentos duros que puedan dañar los implantes.</p>
-    </section>
-
-    <!-- Modal Implantes -->
-    <dialog id="modal4">
-      <h3 class="dialog-title">Implantes</h3>
-      <p class="dialog-content">Los implantes dentales son estructuras de titanio que se insertan en el hueso maxilar para reemplazar dientes perdidos.</p>
-      <p class="dialog-cost">Costo $3000.</p>
-      <button class="dialog-close-button" (click)="closeModal(4)">Cerrar</button>
-    </dialog>
-
-    <!-- Bruxismo -->
-    <section class="espacio" (click)="openModal(5)">
-      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/img/bruxismo.jpg" alt="Bruxismo">
-      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Bruxismo</h2>
-      <p>Realiza ejercicios de relajación para reducir el estrés, una causa común del bruxismo.</p>
-    </section>
-
-    <!-- Modal Bruxismo -->
-    <dialog id="modal5">
-      <h3 class="dialog-title">Bruxismo</h3>
-      <p class="dialog-content">El bruxismo es el hábito involuntario de apretar o rechinar los dientes, especialmente durante el sueño.</p>
-      <p class="dialog-cost">Costo $1000.</p>
-      <button class="dialog-close-button" (click)="closeModal(5)">Cerrar</button>
-    </dialog>
-
-    <!-- Blanqueamiento dental -->
-    <section class="espacio" (click)="openModal(6)">
-      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/img/blanqueamiento.jpg" alt="Blanqueamiento dental">
-      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Blanqueamiento dental</h2>
-      <p>Evita alimentos y bebidas que pueden manchar tus dientes, como el café, el té y el vino tinto.</p>
-    </section>
-
-    <!-- Modal Blanqueamiento dental -->
-    <dialog id="modal6">
-      <h3 class="dialog-title">Blanqueamiento dental</h3>
-      <p class="dialog-content">El blanqueamiento dental es un tratamiento estético que permite aclarar el color de los dientes y eliminar manchas, devolviendo a la sonrisa un aspecto brillante y saludable.</p>
-      <p class="dialog-cost">Costo $800.</p>
-      <button class="dialog-close-button" (click)="closeModal(6)">Cerrar</button>
-    </dialog>
-
-    <!-- Endodoncia -->
-    <section class="espacio" (click)="openModal(7)">
-      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/img/endodoncia.jpg" alt="Endodoncia">
-      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Endodoncia</h2>
-      <p>Sigue las indicaciones de tu dentista para el cuidado post-endodoncia.</p>
-    </section>
-
-    <!-- Modal Endodoncia -->
-    <dialog id="modal7">
-      <h3 class="dialog-title">Endodoncia</h3>
-      <p class="dialog-content">La endodoncia, o tratamiento de conducto, se realiza para salvar dientes que han sido gravemente dañados por caries o lesiones.</p>
-      <p class="dialog-cost">Costo $1000.</p>
-      <button class="dialog-close-button" (click)="closeModal(7)">Cerrar</button>
-    </dialog>
-
-    <!-- Carillas Dentales -->
-    <section class="espacio" (click)="openModal(8)">
-      <img style="width: 1100px; height: 200px;" class="imagen-servicio" src="assets/img/periodoncia.jpeg" alt="Carillas Dentales">
-      <h2 style="color: aliceblue; font-size: 25px;" class="servicio_titulo">Carillas Dentales</h2>
-      <p>Evita morder objetos duros que puedan dañar las carillas.</p>
-    </section>
-
-    <!-- Modal Carillas Dentales -->
-    <dialog id="modal8">
-      <h3 class="dialog-title">Carillas Dentales</h3>
-      <p class="dialog-content">Las carillas dentales son finas capas de porcelana o resina que se colocan sobre los dientes para mejorar su apariencia estética.</p>
-      <p class="dialog-cost">Costo $1500.</p>
-      <button class="dialog-close-button" (click)="closeModal(8)">Cerrar</button>
-    </dialog>
-
+<!-- Nueva sección de introducción -->
+<section class="intro-servicios">
+  <div class="container">
+    <h2 class="intro-title">Nuestros Servicios</h2>
+    <p class="intro-description">
+      Descubre cómo podemos ayudarte a mejorar tu salud bucal con nuestros servicios especializados.
+    </p>
   </div>
+</section>
+
+<section class="info-servicios">
+  <div class="container">
+    <h2 class="info-title">¿Por qué elegirnos?</h2>
+    <div class="info-benefits">
+      <div class="benefit-item">
+        <i class="fas fa-user-md"></i>
+        <h3>Profesionales Certificados</h3>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-tools"></i>
+        <h3>Equipos Modernos</h3>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-heart"></i>
+        <h3>Atención Personalizada</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="carrusel">
+  <div class="carrusel-item" *ngFor="let servicio of servicios; let i = index" [class.active]="i === currentSlide">
+    <img class="imagen-servicio" [src]="servicio.imagen" [alt]="servicio.titulo">
+    <div class="carrusel-caption">
+      <h2 class="servicio_titulo">{{ servicio.titulo }}</h2>
+      <p>{{ servicio.descripcion }}</p>
+      <p class="dialog-cost">Costo: {{ servicio.costo }}</p>
+    </div>
+  </div>
+
+  <button class="carrusel-control prev" (click)="prevSlide()">&#10094;</button>
+  <button class="carrusel-control next" (click)="nextSlide()">&#10095;</button>
 </div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-contenido">
+
+      <div class="redes-sociales">
+        <h4>Redes Sociales</h4>
+        <a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank"
+          class="social-link facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank"
+          class="social-link instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/1234567890" target="_blank" class="social-link whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+
+
+      <div class="infor_macion">
+        <div>
+          <p>Dirección: Avenida 3 Entre Calles 1 y 2, Fortín de las Flores, Veracruz, México</p>
+        </div>
+        <div>
+          <p>Teléfono: +52 271 240 5758</p>
+        </div>
+        <div>
+          <p>Correo: consultoriodentalintegral12&#64;gmail.com</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-text text-center">© 2025 Odontología Integral. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<button class="boton-flotante" [class.mostrar]="mostrarBoton" (click)="scrollToTop()">^</button>

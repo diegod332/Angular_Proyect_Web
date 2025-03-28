@@ -1,0 +1,523 @@
+/* Encabezado */
+.masthead {
+    background: url('/assets/img/servicios.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.masthead::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.container.text-center {
+    position: relative;
+    z-index: 2;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-logo {
+    width: 80px; /* Ajusta el tamaño del logo */
+    height: auto;
+    padding-right: 10px;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu li {
+    display: inline;
+}
+
+.navbar-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-menu a:hover {
+    background-color: #0055aa; /* Azul oscuro al pasar el mouse */
+    border-radius: 5px;
+}
+
+.masthead-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #ffffff; /* Blanco para mayor contraste */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra para mejor visibilidad */
+    margin-top: 20px; /* Ajusta el margen superior */
+}
+
+/* Sección de contenido */
+.inicio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: #e3f2fd;
+    text-align: center;
+}
+
+.inicio-titulo {
+    font-size: 2.5rem;
+    color: #0055aa;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.inicio-descripcion {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Estilo general para el contenedor de servicios */
+.contenedor-servicios {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  background-color: #f9f9f9;
+}
+
+/* Estilo para cada sección de servicio */
+.espacio {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.espacio:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Ajuste para las imágenes de los servicios */
+.imagen-servicio {
+  width: 100%;
+  height: auto;
+  max-height: 60vh; /* Limita la altura máxima al 60% de la ventana */
+  object-fit: cover;
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+}
+
+/* Mejora para los títulos de los servicios */
+.servicio_titulo {
+  margin: 15px 0;
+  text-align: center;
+  font-size: 24px; /* Ajuste del tamaño de fuente */
+  font-weight: bold;
+  color: #0055aa; /* Azul para mayor contraste */
+  text-transform: uppercase;
+}
+
+/* Estilo para los párrafos de descripción */
+.espacio p {
+  padding: 0 15px 15px;
+  font-size: 14px;
+  color: #666666;
+  text-align: justify;
+  display: none;
+}
+
+.dialog-cost {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffcc00; /* Amarillo para destacar el costo */
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+/* Estilo para el contenedor del carrusel */
+.carrusel {
+  position: relative;
+  max-width: 60%; /* Ajusta el ancho del carrusel */
+  margin: auto;
+  margin-bottom: 50px;
+  padding: 20px; /* Agrega padding alrededor del carrusel */
+  overflow: hidden;
+  border-radius: 15px; /* Bordes más cuadrados */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  background-color: #ffffff; /* Fondo blanco para mayor contraste */
+  aspect-ratio: 16 / 9; /* Relación de aspecto 16:9 */
+}
+
+/* Estilo para cada elemento del carrusel */
+.carrusel-item {
+  display: none;
+  text-align: center;
+}
+
+.carrusel-item.active {
+  display: block;
+}
+
+/* Estilo para las imágenes del carrusel */
+.imagen-servicio {
+  width: 100%;
+  height: 100%; /* Ocupa todo el espacio del carrusel */
+  object-fit: cover; /* Ajusta la imagen para que se vea bien */
+  position: relative;
+  border-radius: 10px; /* Bordes redondeados para las imágenes */
+}
+
+/* Estilo para los textos del carrusel */
+.carrusel-caption {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo más oscuro para mayor contraste */
+  color: #ffffff; /* Texto blanco */
+  padding: 15px 25px;
+  border-radius: 8px;
+  text-align: center;
+  width: 85%; /* Ajusta el ancho del texto */
+}
+
+.servicio_titulo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff; /* Blanco para mayor visibilidad */
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+/* Botones de control del carrusel */
+.carrusel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: #0055aa; /* Azul para contrastar con el fondo blanco */
+  border: none;
+  font-size: 28px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 50%; /* Botones redondos */
+}
+
+.carrusel-control.prev {
+  left: 10px;
+}
+
+.carrusel-control.next {
+  right: 10px;
+}
+
+/* Footer */
+.footer {
+    background-color: #003377; /* Fondo verde oscuro */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto; /* Empuja el footer hacia la parte inferior */
+}
+
+.footer-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+
+.redes-sociales {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-link {
+    color: white;
+    text-decoration: none;
+    padding: 9px 16px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.social-link.facebook {
+    background-color: #3b5998; /* Azul de Facebook */
+}
+
+.social-link.instagram {
+    background-color: #c32aa3; /* Rosa de Instagram */
+}
+
+.social-link.whatsapp {
+    background-color: #25d366; /* Verde de WhatsApp */
+}
+
+.social-link:hover {
+    transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
+    opacity: 0.9;
+}
+
+.contacto-contenedor {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-start; 
+    gap: 20px;
+}
+
+.ubicacion {
+    flex: 1; 
+    text-align: center;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.redes-sociales, .infor_macion {
+    flex: 1;
+    min-width: 250px;
+}
+
+.redes-sociales h4, .infor_macion h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.redes-sociales a {
+    display: inline-block;
+    margin-right: 2px;
+    font-size: 20px;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.infor_macion p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Estilo para la sección de información */
+.info-servicios {
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.info-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0055aa;
+  margin-bottom: 20px;
+}
+
+.info-description {
+  font-size: 16px;
+  color: #555555;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.info-benefits {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.benefit-item {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  flex: 1;
+  max-width: 300px;
+}
+
+.benefit-item i {
+  font-size: 40px;
+  color: #0055aa;
+  margin-bottom: 10px;
+}
+
+.benefit-item h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.benefit-item p {
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.5;
+}
+
+/* Estilo para la sección de introducción */
+.intro-servicios {
+  padding: 40px 20px; /* Espaciado estándar */
+  text-align: center;
+  color: #333; /* Texto oscuro para contraste */
+  margin-bottom: 20px; /* Separación con otras secciones */
+  border-radius: 0; /* Sin bordes redondeados */
+  box-shadow: none; /* Sin sombra */
+}
+
+.intro-title {
+  font-size: 28px; /* Tamaño estándar */
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: none; /* Sin mayúsculas */
+}
+
+.intro-description {
+  font-size: 16px; /* Texto estándar */
+  line-height: 1.8;
+  margin: 0 auto;
+  max-width: 800px; /* Limita el ancho del texto */
+}
+
+/* Estilo para la sección de información adicional */
+.info-adicional {
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 40px 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.info-adicional-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0055aa; /* Azul oscuro */
+  margin-bottom: 20px;
+}
+
+.info-adicional-description {
+  font-size: 16px;
+  color: #555555;
+  line-height: 1.8;
+  margin: 0 auto;
+  max-width: 800px; /* Limita el ancho del texto */
+  margin-bottom: 30px;
+}
+
+.info-adicional-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.info-adicional-item {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  flex: 1;
+  max-width: 300px;
+}
+
+.info-adicional-item i {
+  font-size: 40px;
+  color: #0055aa;
+  margin-bottom: 10px;
+}
+
+.info-adicional-item h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.info-adicional-item p {
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.5;
+}
+
+/* Botón flotante */
+.boton-flotante {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0055aa; /* Azul principal */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s, opacity 0.5s; /* Transición para opacidad */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  opacity: 0; /* Inicialmente invisible */
+  visibility: hidden; /* Oculta el botón inicialmente */
+  background-color: #007bff;
+  color: #fff;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.boton-flotante.mostrar {
+  opacity: 1; /* Hace visible el botón */
+  visibility: visible; /* Asegura que sea visible */
+  display: flex;
+}
+
+.boton-flotante:hover {
+  background-color: #003377; /* Azul más oscuro al pasar el mouse */
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+  background-color: #0056b3;
+}

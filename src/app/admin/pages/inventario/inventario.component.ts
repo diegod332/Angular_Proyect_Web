@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
 
+declare var bootstrap: any; // Declarar Bootstrap para usar su API
+
 @Component({
   selector: 'app-inventario',
   standalone: false,
@@ -15,7 +17,7 @@ export class InventarioComponent implements OnInit {
   insumoActual: any = { name: '', quantity: 0, expirationDate: '', price: 0 }; // Insumo actual para agregar o editar
   esEditar: boolean = false; // Indica si se está editando un insumo
 
-  private apiURL = 'http://localhost:3004/api/supplies'; // Cambia la URL según tu configuración
+  private apiURL = 'http://localhost:3004/api/supplies'; // Ruta base para insumos
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
@@ -37,27 +39,16 @@ export class InventarioComponent implements OnInit {
 
   // Abrir el modal para agregar un nuevo insumo
   abrirModalNuevo(): void {
-    this.insumoActual = { name: '', quantity: 0, expirationDate: '', price: 0 };
-    this.esEditar = false;
-    const modal = document.getElementById('insumoModal') as HTMLDivElement;
-    modal.style.display = 'block';
-    modal.classList.add('show');
+    this.insumoActual = { name: '', quantity: 0, expirationDate: '', price: 0 }; // Limpia el insumo actual
+    this.esEditar = false; // Modo agregar
+    this.mostrarModal('insumoModal');
   }
 
   // Abrir el modal para editar un insumo existente
   abrirModalEditar(insumo: any): void {
-    this.insumoActual = { ...insumo };
-    this.esEditar = true;
-    const modal = document.getElementById('insumoModal') as HTMLDivElement;
-    modal.style.display = 'block';
-    modal.classList.add('show');
-  }
-
-  // Cerrar el modal
-  cerrarModal(): void {
-    const modal = document.getElementById('insumoModal') as HTMLDivElement;
-    modal.style.display = 'none';
-    modal.classList.remove('show');
+    this.insumoActual = { ...insumo }; // Copia el insumo seleccionado
+    this.esEditar = true; // Modo editar
+    this.mostrarModal('insumoModal');
   }
 
   // Guardar un insumo (crear o editar)
@@ -67,7 +58,7 @@ export class InventarioComponent implements OnInit {
       this.http.put(`${this.apiURL}/${this.insumoActual._id}`, this.insumoActual).subscribe({
         next: () => {
           this.obtenerInsumos(); // Actualizar la lista de insumos
-          this.cerrarModal();
+          this.cerrarModal('insumoModal');
         },
         error: (err) => {
           console.error('Error al editar insumo:', err);
@@ -78,7 +69,7 @@ export class InventarioComponent implements OnInit {
       this.http.post(this.apiURL, this.insumoActual).subscribe({
         next: () => {
           this.obtenerInsumos(); // Actualizar la lista de insumos
-          this.cerrarModal();
+          this.cerrarModal('insumoModal');
         },
         error: (err) => {
           console.error('Error al crear insumo:', err);
@@ -98,6 +89,24 @@ export class InventarioComponent implements OnInit {
           console.error('Error al eliminar insumo:', err);
         },
       });
+    }
+  }
+
+  mostrarModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  cerrarModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide();
+      }
     }
   }
 

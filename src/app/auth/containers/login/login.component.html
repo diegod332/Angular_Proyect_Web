@@ -1,60 +1,92 @@
-<div class="titulo">
-  <h3>Odontología Integral</h3>
-</div>
+<header class="masthead">
+  <nav class="navbar">
+      <div class="container">
+          <!-- Logo y título del sitio -->
+          <a class="navbar-brand" href="#">
+              <img src="assets/img/logo_od.png" alt="Logo Odontología Integral" class="navbar-logo">
+              <span>Odontología Integral</span>
+          </a>
 
-<h2>Consultorio dental de la Dra. Nancy Sánchez</h2>
-
-<header class="barra">
-  <nav>
-    <ul>
-      <li><a routerLink="/inicio">Inicio</a></li>
-      <li><a routerLink="/quienes-somos">¿Quiénes somos?</a></li>
-      <li><a routerLink="/servicios">Servicios</a></li>
-      <li><a routerLink="/contacto">Contacto</a></li>
-      <li><a routerLink="/login">Iniciar sesión</a></li>
-      <li><a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a></li>
-      <li><a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank"><i class="fab fa-instagram"></i></a></li>
-      <li><a href="https://www.whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-    </ul>
+          <!-- Opciones de navegación -->
+          <ul class="navbar-menu">
+              <li><a routerLink="/inicio">Inicio</a></li>
+              <li><a routerLink="/quienes-somos">¿Quiénes somos?</a></li>
+              <li><a routerLink="/servicios">Servicios</a></li>
+              <li><a routerLink="/contacto">Contacto</a></li>
+              <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a></li>
+              <li><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="https://www.whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+              <li><a routerLink="/login">Iniciar sesión</a></li>
+          </ul>
+      </div>
   </nav>
-  <img src="assets/img/logo_od.ico" alt="Logo de la empresa" class="logo">
+
+  <!-- Título en el encabezado -->
+  <div class="container text-center">
+      <h1 class="masthead-title">Iniciar Sesión</h1>
+  </div>
 </header>
 
-<h1 class="titulo1">Iniciar Sesión</h1>
-<h1 style="text-align: center; font-size: 20px;" class="bienvenida">
-  Bienvenido a Odontología Integral. Por favor, inicie sesión para acceder a su panel personal y gestionar sus citas y tratamientos.
-</h1>
+<div class="container formulario-container">
 
-<form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="formulario-crear-cuenta">
-  <label for="email" class="etiqueta-formulario">Usuario *</label>
-  <input id="email"  formControlName="email" class="entrada-formulario" required>
+  <p class="titulo"> Por favor, inicie sesión para acceder a su panel personal y gestionar sus citas y tratamientos.</p>
 
-  <label for="password" class="etiqueta-formulario">Contraseña *</label>
-  <input type="password" id="password" formControlName="password" class="entrada-formulario" required>
+  <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="formulario">
+    <div class="form-group">
+      <label for="email" class="form-label">Correo Electrónico *</label>
+      <input id="email" formControlName="email" class="form-control" required>
+    </div>
 
-  <input type="submit" value="Iniciar Sesión" class="boton-formulario" [disabled]="loginForm.invalid">
-</form>
+    <div class="form-group">
+      <label for="password" class="form-label">Contraseña *</label>
+      <input type="password" id="password" formControlName="password" class="form-control" required>
+    </div>
 
-<div class="loading-overlay" [class.active]="cargando">
-  <img src="assets/img/logo_od.png" alt="Logo animado">
+    <div class="form-group text-center">
+      <input type="submit" value="Iniciar Sesión" class="btn btn-primary" [disabled]="loginForm.invalid">
+    </div>
+  </form>
+</div>
+
+<div class="loading-overlay" *ngIf="cargando">
+  <img src="assets/img/logo_od.ico" class="logo">
+
   <p>Redirigiendo al panel...</p>
 </div>
 
-<footer>
-  <div class="redes_ss">
-    <div class="redes-sociales">
-      <div><p style="margin-right: 30px;">Redes Sociales</p></div>
-      <a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank" class="social-button facebook"><i class="fab fa-facebook"></i> Odontología Integral</a>
-      <a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank" class="social-button instagram"><i class="fab fa-instagram"></i> &#64;odonto_logia_integral</a>
-      <a href="https://wa.me/123456789" target="_blank" class="social-button whatsapp"><i class="fab fa-whatsapp"></i></a>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-contenido">
+
+      <div class="redes-sociales">
+        <h4>Redes Sociales</h4>
+        <a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank"
+          class="social-link facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank"
+          class="social-link instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/1234567890" target="_blank" class="social-link whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+
+
+      <div class="infor_macion">
+        <div>
+          <p>Dirección: Avenida 3 Entre Calles 1 y 2, Fortín de las Flores, Veracruz, México</p>
+        </div>
+        <div>
+          <p>Teléfono: +52 271 240 5758</p>
+        </div>
+        <div>
+          <p>Correo: consultoriodentalintegral12&#64;gmail.com</p>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="infor_macion">
-    <div><p style="margin-right: 20px; margin-bottom: auto; font-size: 17px;">Dirección: Avenida 3 Entre Calles 1 y 2, Fortín de las Flores, Veracruz, México</p></div>
-    <div><p style="margin-bottom: auto; font-size: 17px; margin-right: 400px;">Teléfono: +52 271 240 5758</p></div>
-    <div><p style="margin-right: 250px; margin-bottom: auto; font-size: 17px;">Email: consultoriodentalintegral12&#64;gmail.com</p></div>
-  </div>
-  <div class="derechos">
-    <p style="padding-top: 150px;">&copy; 2024 Odontología Integral. Todos los derechos reservados.</p>
+
+    <p class="footer-text text-center">© 2025 Odontología Integral. Todos los derechos reservados.</p>
   </div>
 </footer>

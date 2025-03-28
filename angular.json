@@ -31,13 +31,12 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-             "src/assets",
-            "src/favicon.ico"
-            ],        
+              "src/assets",
+              "src/favicon.ico"
+            ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/landing-global.css",
-               "src/app/admin/admin.component.css",
+              "src/app/admin/admin.component.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css"
             ],
@@ -104,8 +103,7 @@
               "public/css/styles.css",
               "public/css/styleslanding.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           }
         }
       }

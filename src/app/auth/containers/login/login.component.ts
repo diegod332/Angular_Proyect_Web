@@ -6,8 +6,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['../../../../assets/css/landing-global.css'],
-  encapsulation: ViewEncapsulation.None ,
+  styleUrls: ['./login.component.css'],
   standalone: false,
 })
 export class LoginComponent {

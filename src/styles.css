@@ -1,0 +1,7 @@
+#loading-screen {
+    display: none;
+}
+
+app-root:empty+#loading-screen {
+    display: block;
+}

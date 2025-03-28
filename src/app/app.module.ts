@@ -18,6 +18,7 @@ import {AuthModule} from './auth/auth.module';
 import { QuienesSomosComponent } from './quienes-somos/quienes-somos.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { ContactoComponent } from './contacto/contacto.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { ContactoComponent } from './contacto/contacto.component';
     AppRoutingModule,
     ReactiveFormsModule,
     CommonModule,
-    AuthModule,],
+    AuthModule,
+    BrowserAnimationsModule
+  ],
   providers: [
     provideClientHydration(withEventReplay()),
     AppService,

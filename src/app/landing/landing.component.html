@@ -1,55 +1,81 @@
-<div class="titulo">
-  <h3>Odontología Integral</h3>
-</div>
+<header class="masthead">
+  <nav class="navbar">
+    <div class="container">
 
-<h2>Consultorio dental de la Dra. Nancy Sánchez</h2>
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/logo_od.png" alt="Logo Odontología Integral" class="navbar-logo">
+      </a>
 
-<header class="barra">
-  <nav>
-      <ul>
-          <li><a routerLink="/inicio">Inicio</a></li>
-          <li><a routerLink="/quienes-somos">¿Quiénes somos?</a></li>
-          <li><a routerLink="/servicios">Servicios</a></li>
-          <li><a routerLink="/contacto">Contacto</a></li>
-          <li><a routerLink="/login">Iniciar sesión</a></li>
-          <li><a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank">
-              <i class="fab fa-facebook"></i></a></li>
-          <li><a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank">
-              <i class="fab fa-instagram"></i></a></li>
-          <li><a href="https://www.whatsapp.com" target="_blank">
-              <i class="fab fa-whatsapp"></i></a></li>
+      <ul class="navbar-menu">
+        <li><a routerLink="/inicio">Inicio</a></li>
+        <li><a routerLink="/quienes-somos">¿Quiénes somos?</a></li>
+        <li><a routerLink="/servicios">Servicios</a></li>
+        <li><a routerLink="/contacto">Contacto</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a></li>
+        <li><a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+        <li><a routerLink="/login">Iniciar sesión</a></li>
       </ul>
+    </div>
   </nav>
-  <img src="assets/img/logo_od.ico"  class="logo">
+
+  <div class="container text-center">
+    <h1 class="masthead-title">Odontología Integral</h1>
+    <p class="masthead-subtitle">Consultorio dental de la Dra. Nancy Sánchez</p>
+  </div>
 </header>
 
 <section class="inicio">
-  <div class="texto-inicio">
-      <h1>Bienvenido a Odontología Integral</h1>
-      <p>Somos un equipo dedicado a ofrecerte tratamientos dentales de alta calidad con un enfoque integral en tu salud bucodental.</p>
-      <a routerLink="/servicios" class="boton-destacado">Descubre nuestros servicios</a>
+  <div class="container text-center">
+    <h2 class="inicio-titulo">Bienvenidos a Odontología Integral</h2>
+    <p class="inicio-descripcion">
+      Somos un equipo dedicado a ofrecerte tratamientos dentales de alta calidad con un enfoque integral en tu salud
+      dental.
+    </p>
+    <p class="inicio-descripcion">
+      En nuestro consultorio, contamos con tecnología de vanguardia y un equipo de profesionales altamente capacitados
+      para garantizarte una experiencia cómoda y segura. Nuestro objetivo es cuidar de tu sonrisa y tu bienestar.
+    </p>
+    <p class="inicio-descripcion">
+      Ofrecemos una amplia gama de servicios, desde limpiezas dentales y tratamientos de ortodoncia hasta procedimientos
+      estéticos como blanqueamiento dental. ¡Tu salud bucal es nuestra prioridad!
+    </p>
+    <a routerLink="/servicios" class="boton-destacado">Conoce nuestros servicios</a>
   </div>
-  <img src="assets/img/paciente-mujer-dentista.jpg" alt="Clínica Dental" class="imagen-inicio">
 </section>
 
-<footer>
-  <div class="redes_ss">
+<footer class="footer">
+  <div class="container">
+    <div class="footer-contenido">
+
       <div class="redes-sociales">
-          <div><p style="margin-right: 30px;">Redes Sociales</p></div>
-          <a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank" class="social-button facebook">
-              <i class="fab fa-facebook"></i> Odontología Integral</a>
-          <a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank" class="social-button instagram">
-              <i class="fab fa-instagram"></i> &#64;odonto_logia_integral</a>
-          <a href="https://wa.me/123456789" target="_blank" class="social-button whatsapp">
-              <i class="fab fa-whatsapp"></i></a>
+        <h4>Redes Sociales</h4>
+        <a href="https://www.facebook.com/profile.php?id=61563612633841&mibextid=ZbWKwL" target="_blank" class="social-link facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/odonto_logia_integral?igsh=YTcwOXFzcXpibzJ3" target="_blank" class="social-link instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/1234567890" target="_blank" class="social-link whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
       </div>
-  </div>
-  <div class="infor_macion">
-      <div><p>Dirección: Avenida 3 Entre Calles 1 y 2, Fortín de las Flores, Veracruz, México</p></div>
-      <div><p>Teléfono: +52 271 240 5758</p></div>
-      <div><p>Email: consultoriodentalintegral12&#64;gmail.com</p></div>
-  </div>
-  <div class="derechos">
-      <p>&copy; 2024 Odontología Integral. Todos los derechos reservados.</p>
+
+      <div class="infor_macion">
+        <div>
+          <p>Dirección: Avenida 3 Entre Calles 1 y 2, Fortín de las Flores, Veracruz, México</p>
+        </div>
+        <div>
+          <p>Teléfono: +52 271 240 5758</p>
+        </div>
+        <div>
+          <p>Correo: consultoriodentalintegral12&#64;gmail.com</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-text text-center">© 2025 Odontología Integral. Todos los derechos reservados.</p>
   </div>
 </footer>
+
+<button class="boton-flotante" [class.mostrar]="mostrarBoton" (click)="scrollToTop()">^</button>

@@ -1,158 +1,119 @@
 <div class="d-flex">
-    <div class="sidebar-custom">
-      <div>
-        <div class="sidebar-header">
-          <img src="assets/img/logo_od.ico" alt="Logo de la empresa">
-          <h4>Odontología Integral</h4>
-          <div id="usuario"></div>
-        </div>
-        <nav class="nav flex-column">
-          <a routerLink="/admin/panel" routerLinkActive="active" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
-          <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
-          <a routerLink="/admin/citas-programadas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar-check"></i> Citas Programadas</a>
-          <a routerLink="/admin/inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
-          <a routerLink="/admin/servicios-dentales" routerLinkActive="active" class="nav-link"><i class="fas fa-briefcase-medical"></i> Servicios</a>
-          <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link" id="activo">Clientes</a>
-          <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-        </nav>
+  <div class="sidebar-custom">
+    <div>
+      <div class="sidebar-header">
+        <img src="assets/img/logo_od.ico" alt="Logo de la empresa">
+        <h4>Odontología Integral</h4>
       </div>
-      <div class="sidebar-footer">
-        &copy; 2024 Odontología Integral. Todos los derechos reservados.
-      </div>
+      <nav class="nav flex-column">
+        <h5 class="sidebar-section-title">Navegación</h5>
+        <a routerLink="/admin/panel" routerLinkActive="active" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+        
+        <h5 class="sidebar-section-title">Gestión</h5>
+        <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
+        <a routerLink="/admin/inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
+        <a routerLink="/admin/servicios-dentales" routerLinkActive="active" class="nav-link"><i class="fas fa-briefcase-medical"></i> Servicios</a>
+        <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+        
+        <h5 class="sidebar-section-title">Cuenta</h5>
+        <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      </nav>
     </div>
-  
-    <div class="content flex-fill">
-      <h1>Gestionar clientes</h1>
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <input type="text" class="form-control w-25" placeholder="Buscar...">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#nuevoClienteModal">Nuevo Cliente</button>
-      </div>
-  
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Número de Emergencia</th>
-            <th>Fecha de Nacimiento</th>
-            <th>Total de Citas</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Aquí se generarán dinámicamente las filas de clientes -->
-        </tbody>
-      </table>
+    <div class="sidebar-footer">
+      &copy; 2025 Odontología Integral. Todos los derechos reservados.
     </div>
   </div>
-  
-  <!-- Modal para agregar nuevo cliente -->
-  <div class="modal fade" id="nuevoClienteModal" tabindex="-1" role="dialog" aria-labelledby="nuevoClienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="nuevoClienteModalLabel">Agregar nuevo cliente</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="nuevoNombre">Nombre</label>
-              <input type="text" class="form-control" id="nuevoNombre" required>
-            </div>
-            <div class="form-group">
-              <label for="nuevoApellido">Apellido</label>
-              <input type="text" class="form-control" id="nuevoApellido" required>
-            </div>
-            <div class="form-group">
-              <label for="nuevoSegundoNombre">Segundo Nombre</label>
-              <input type="text" class="form-control" id="nuevoSegundoNombre" required>
-            </div>
-            <div class="form-group">
-              <label for="nuevoNumeroEmergencia">Número de Emergencia</label>
-              <input type="text" class="form-control" id="nuevoNumeroEmergencia" required>
-            </div>
-            <div class="form-group">
-              <label for="nuevoFechaNacimiento">Fecha de Nacimiento</label>
-              <input type="date" class="form-control" id="nuevoFechaNacimiento" required>
-            </div>
-            <div class="form-group">
-              <label for="nuevoTotalCitas">Total de Citas</label>
-              <input type="number" class="form-control" id="nuevoTotalCitas" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Agregar</button>
-          </form>
-        </div>
-      </div>
+
+  <div class="content flex-fill">
+    <h1>Gestionar clientes</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <input type="text" class="form-control w-25" placeholder="Buscar...">
+      <button class="btn btn-primary" (click)="abrirModalNuevo()">Nuevo Cliente</button>
     </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Número de Emergencia</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Total de Citas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.numeroEmergencia }}</td>
+          <td>{{ cliente.fechaNacimiento | date }}</td>
+          <td>{{ cliente.totalCitas }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="abrirModalEditar(cliente)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarCliente(cliente.id)">Eliminar</button>
+          </td>
+        </tr>
+        <tr *ngIf="clientes.length === 0">
+          <td colspan="5" class="text-center">No hay clientes registrados.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
-  <!-- Modal para editar cliente -->
-  <div class="modal fade" id="editarClienteModal" tabindex="-1" role="dialog" aria-labelledby="editarClienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editarClienteModalLabel">Editar Cliente</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <input type="hidden" id="editId">
-            <div class="form-group">
-              <label for="editNombre">Nombre</label>
-              <input type="text" class="form-control" id="editNombre" required>
+</div>
+
+<!-- Modal para agregar o editar cliente -->
+<div class="modal fade" id="clienteModal" tabindex="-1" role="dialog" aria-labelledby="clienteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <!-- Encabezado del modal -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="clienteModalLabel">
+          <i class="fas fa-user-edit"></i> {{ esEditar ? 'Editar Cliente' : 'Nuevo Cliente' }}
+        </h5>
+      </div>
+
+      <!-- Cuerpo del modal -->
+      <div class="modal-body">
+        <form (ngSubmit)="guardarCliente()">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label for="nombreCliente" class="form-label">Nombre</label>
+                <input type="text" id="nombreCliente" [(ngModel)]="clienteActual.nombre" name="nombre" class="form-control" placeholder="Ingrese el nombre" required>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="editApellido">Apellido</label>
-              <input type="text" class="form-control" id="editApellido" required>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label for="numeroEmergenciaCliente" class="form-label">Número de Emergencia</label>
+                <input type="text" id="numeroEmergenciaCliente" [(ngModel)]="clienteActual.numeroEmergencia" name="numeroEmergencia" class="form-control" placeholder="Ingrese el número de emergencia" required>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="editSegundoNombre">Segundo Nombre</label>
-              <input type="text" class="form-control" id="editSegundoNombre" required>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label for="fechaNacimientoCliente" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" id="fechaNacimientoCliente" [(ngModel)]="clienteActual.fechaNacimiento" name="fechaNacimiento" class="form-control" required>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="editNumeroEmergencia">Número de Emergencia</label>
-              <input type="text" class="form-control" id="editNumeroEmergencia" required>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label for="totalCitasCliente" class="form-label">Total de Citas</label>
+                <input type="number" id="totalCitasCliente" [(ngModel)]="clienteActual.totalCitas" name="totalCitas" class="form-control" placeholder="Ingrese el total de citas" required>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="editFechaNacimiento">Fecha de Nacimiento</label>
-              <input type="date" class="form-control" id="editFechaNacimiento" required>
-            </div>
-            <div class="form-group">
-              <label for="editTotalCitas">Total de Citas</label>
-              <input type="number" class="form-control" id="editTotalCitas" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-          </form>
-        </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Pie del modal -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal('clienteModal')">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button type="submit" class="btn btn-success" (click)="guardarCliente()">
+          <i class="fas fa-save"></i> {{ esEditar ? 'Guardar Cambios' : 'Agregar Cliente' }}
+        </button>
       </div>
     </div>
   </div>
-  
-  <!-- Modal para ver detalles del cliente -->
-  <div class="modal fade" id="verClienteModal" tabindex="-1" role="dialog" aria-labelledby="verClienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="verClienteModalLabel">Detalles del Cliente</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p><strong>Nombre:</strong> <span id="detalleNombre"></span></p>
-          <p><strong>Número de Emergencia:</strong> <span id="detalleNumeroEmergencia"></span></p>
-          <p><strong>Fecha de Nacimiento:</strong> <span id="detalleFechaNacimiento"></span></p>
-          <p><strong>Total de Citas:</strong> <span id="detalleTotalCitas"></span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div id="loading" class="loading" *ngIf="cargando">
-    <div class="spinner-border text-primary" role="status"></div>
-    <p>Cerrando sesión...</p>
-  </div>
+</div>

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
 
+declare var bootstrap: any; // Declarar Bootstrap para usar su API
+
 @Component({
   selector: 'app-servicios-dentales',
   standalone: false,
@@ -15,7 +17,7 @@ export class ServiciosDentalesComponent implements OnInit {
   servicioActual: any = { serviceName: '', price: 0 }; // Servicio actual para agregar o editar
   esEditar: boolean = false; // Indica si se está editando un servicio
 
-  private apiURL = 'http://localhost:3004/api/services'; // Cambia la URL según tu configuración
+  private apiURL = 'http://localhost:3004/api/services'; // Ruta base para servicios
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
@@ -35,42 +37,28 @@ export class ServiciosDentalesComponent implements OnInit {
     });
   }
 
-  // Abrir el modal para agregar un nuevo servicio
   abrirModalNuevo(): void {
-    this.servicioActual = { serviceName: '', price: 0 };
-    this.esEditar = false;
-    const modal = document.getElementById('servicioModal') as HTMLDivElement;
-    modal.style.display = 'block';
-    modal.classList.add('show');
+    this.servicioActual = { serviceName: '', price: 0 }; // Limpia el servicio actual
+    this.esEditar = false; // Modo agregar
+    this.mostrarModal('servicioModal');
   }
 
-  // Abrir el modal para editar un servicio existente
   abrirModalEditar(servicio: any): void {
-    this.servicioActual = { ...servicio };
-    this.esEditar = true;
-    const modal = document.getElementById('servicioModal') as HTMLDivElement;
-    modal.style.display = 'block';
-    modal.classList.add('show');
+    this.servicioActual = { ...servicio }; // Copia el servicio seleccionado
+    this.esEditar = true; // Modo editar
+    this.mostrarModal('servicioModal');
   }
 
-  // Cerrar el modal
-  cerrarModal(): void {
-    const modal = document.getElementById('servicioModal') as HTMLDivElement;
-    modal.style.display = 'none';
-    modal.classList.remove('show');
-  }
-
-  // Guardar un servicio (crear o editar)
   guardarServicio(): void {
     if (this.esEditar) {
-      // Editar servicio
+      // Actualizar servicio existente
       this.http.put(`${this.apiURL}/${this.servicioActual._id}`, this.servicioActual).subscribe({
         next: () => {
           this.obtenerServicios(); // Actualizar la lista de servicios
-          this.cerrarModal();
+          this.cerrarModal('servicioModal');
         },
         error: (err) => {
-          console.error('Error al editar servicio:', err);
+          console.error('Error al actualizar servicio:', err);
         },
       });
     } else {
@@ -78,7 +66,7 @@ export class ServiciosDentalesComponent implements OnInit {
       this.http.post(this.apiURL, this.servicioActual).subscribe({
         next: () => {
           this.obtenerServicios(); // Actualizar la lista de servicios
-          this.cerrarModal();
+          this.cerrarModal('servicioModal');
         },
         error: (err) => {
           console.error('Error al crear servicio:', err);
@@ -87,7 +75,6 @@ export class ServiciosDentalesComponent implements OnInit {
     }
   }
 
-  // Eliminar un servicio
   eliminarServicio(id: string): void {
     if (confirm('¿Estás seguro de que deseas eliminar este servicio?')) {
       this.http.delete(`${this.apiURL}/${id}`).subscribe({
@@ -98,6 +85,24 @@ export class ServiciosDentalesComponent implements OnInit {
           console.error('Error al eliminar servicio:', err);
         },
       });
+    }
+  }
+
+  mostrarModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  cerrarModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide();
+      }
     }
   }
 
