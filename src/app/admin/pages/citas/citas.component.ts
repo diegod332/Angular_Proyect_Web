@@ -27,6 +27,7 @@ export class CitasComponent implements OnInit {
   searchTerm: string = '';
 
   private apiURL = 'http://localhost:3004/api/appointments';
+  minDate: string | undefined;
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
@@ -38,6 +39,8 @@ export class CitasComponent implements OnInit {
 
   // Inicializa el componente cargando citas, servicios y clientes
   ngOnInit(): void {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]; // Fecha mínima para el campo de fecha
     this.obtenerCitas();
     this.obtenerServicios();
     this.obtenerClientes();
@@ -165,6 +168,8 @@ export class CitasComponent implements OnInit {
 
   // Guarda una cita nueva o actualiza una existente
   guardarCita(): void {
+    const today = new Date().toISOString().split('T')[0]; // Fecha actual en formato ISO (YYYY-MM-DD)
+  
     if (!this.citaActual.client) {
       Swal.fire({
         icon: 'error',
@@ -173,7 +178,7 @@ export class CitasComponent implements OnInit {
       });
       return;
     }
-
+  
     if (!this.citaActual.appointmentDate) {
       Swal.fire({
         icon: 'error',
@@ -182,7 +187,17 @@ export class CitasComponent implements OnInit {
       });
       return;
     }
-
+  
+    // Validación: La fecha no debe ser anterior a la actual
+    if (this.citaActual.appointmentDate < today) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Fecha inválida',
+        text: 'La fecha no puede ser anterior a la fecha actual.',
+      });
+      return;
+    }
+  
     if (!this.citaActual.appointmentTime) {
       Swal.fire({
         icon: 'error',
@@ -191,7 +206,7 @@ export class CitasComponent implements OnInit {
       });
       return;
     }
-
+  
     if (!this.citaActual.service) {
       Swal.fire({
         icon: 'error',
@@ -200,7 +215,7 @@ export class CitasComponent implements OnInit {
       });
       return;
     }
-
+  
     if (!this.citaActual.status) {
       Swal.fire({
         icon: 'error',
@@ -209,15 +224,15 @@ export class CitasComponent implements OnInit {
       });
       return;
     }
-
+  
     this.citaActual.appointmentDate = this.formatDate(this.citaActual.appointmentDate);
-
+  
     if (this.esEditar) {
       if (!this.citaActual.id) {
         console.error('El ID de la cita no está definido.');
         return;
       }
-
+  
       this.http.put(`${this.apiURL}/${this.citaActual.id}`, this.citaActual).subscribe({
         next: () => {
           this.obtenerCitas();
@@ -232,8 +247,8 @@ export class CitasComponent implements OnInit {
           console.error('Error al editar cita:', err);
           Swal.fire({
             icon: 'error',
-            title: 'Servicio no seleccionado',
-            text: 'Por favor, selecciona un servicio.',
+            title: 'Error',
+            text: 'Hubo un problema al actualizar la cita.',
           });
         },
       });
@@ -259,7 +274,6 @@ export class CitasComponent implements OnInit {
       });
     }
   }
-
   // Elimina una cita por su ID
   eliminarCita(id: string): void {
     if (!id) {

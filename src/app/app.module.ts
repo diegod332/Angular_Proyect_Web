@@ -7,7 +7,7 @@ import { LandingComponent } from './landing/landing.component';
 import {AdminModule} from './admin/admin.module';
 import { RegisterComponent } from './auth/containers/register/register.component';
 import { LoginComponent } from './auth/containers/login/login.component';
-
+import { FormsModule } from '@angular/forms';
 import {AppService} from './app.service';
 import {APP_BASE_HREF, CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     CommonModule,
     AuthModule,
+    FormsModule,
     BrowserAnimationsModule
   ],
   providers: [

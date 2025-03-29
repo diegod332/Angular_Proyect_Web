@@ -34,15 +34,16 @@
   </div>
 
   <div class="contacto-contenedor">
-    <form id="formulario-contacto" class="formulario-contacto" style="flex: 1;">
+    <!-- Formulario de contacto -->
+    <form id="formulario-contacto" class="formulario-contacto" (ngSubmit)="enviarFormulario()" style="flex: 1;">
       <label for="nombre" class="etiqueta-contacto">Nombre</label>
-      <input type="text" id="nombre" name="nombre" class="entrada-contacto" required>
+      <input type="text" id="nombre" name="nombre" class="entrada-contacto" [(ngModel)]="nombre" required>
 
       <label for="email" class="etiqueta-contacto">Correo Electrónico</label>
-      <input type="email" id="email" name="email" class="entrada-contacto" required>
+      <input type="email" id="email" name="email" class="entrada-contacto" [(ngModel)]="email" required>
 
       <label for="mensaje" class="etiqueta-contacto">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" class="entrada-contacto" rows="5" required></textarea>
+      <textarea id="mensaje" name="mensaje" class="entrada-contacto" [(ngModel)]="mensaje" rows="5" required></textarea>
 
       <input type="submit" value="Enviar" class="boton-contacto">
     </form>
