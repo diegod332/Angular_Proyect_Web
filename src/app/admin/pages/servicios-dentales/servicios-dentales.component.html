@@ -4,7 +4,6 @@
       <div class="sidebar-header">
         <img src="assets/img/logo_od.ico" alt="Logo de la empresa">
         <h4>Odontología Integral</h4>
-<<<<<<< HEAD
       </div>
       <nav class="nav flex-column">
         <h5 class="sidebar-section-title">Navegación</h5>
@@ -17,38 +16,22 @@
         <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
         
         <h5 class="sidebar-section-title">Cuenta</h5>
-=======
-        <div id="usuario"></div>
-      </div>
-      <nav class="nav flex-column">
-        <a routerLink="/admin/panel" routerLinkActive="active" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
-        <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
-        <a routerLink="/admin/inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
-        <a routerLink="/admin/servicios-dentales" routerLinkActive="active" class="nav-link" id="activo">Servicios</a>
-        <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
         <a (click)="cerrarSesion()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
       </nav>
     </div>
     <div class="sidebar-footer">
-<<<<<<< HEAD
       &copy; 2025 Odontología Integral. Todos los derechos reservados.
-=======
-      &copy; 2024 Odontología Integral. Todos los derechos reservados.
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
     </div>
+  </div>
+
+  <div class="loading-overlay" *ngIf="cargando">
+    <img src="assets/img/logo_od.ico" class="logo">
+    <p>Cerrando sesión...</p>
   </div>
 
   <div class="content flex-fill">
     <h1>Gestionar servicios</h1>
     <div class="d-flex justify-content-between align-items-center mb-3">
-<<<<<<< HEAD
-      <input type="text" class="form-control w-25" placeholder="Buscar...">
-      <button class="btn btn-primary" (click)="abrirModalNuevo()">Nuevo Servicio</button>
-    </div>
-
-=======
-      <!-- Barra de búsqueda -->
       <input
         type="text"
         class="form-control w-25"
@@ -58,10 +41,8 @@
       <button class="btn btn-primary" (click)="abrirModalNuevo()">Nuevo Servicio</button>
     </div>
 
-    <!-- Tabla de servicios -->
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
-    <table class="table table-striped">
-      <thead>
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-dark">
         <tr>
           <th>Nombre</th>
           <th>Precio</th>
@@ -69,150 +50,85 @@
         </tr>
       </thead>
       <tbody>
-<<<<<<< HEAD
-        <tr *ngFor="let servicio of servicios">
-=======
-        <tr *ngFor="let servicio of filteredServicios">
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
+        <tr *ngFor="let servicio of filteredServicios" class="table-light">
           <td>{{ servicio.serviceName }}</td>
           <td>{{ servicio.price | currency }}</td>
           <td>
-            <button class="btn btn-warning btn-sm" (click)="abrirModalEditar(servicio)">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="eliminarServicio(servicio._id)">Eliminar</button>
+            <button class="btn btn-sm btn-outline-warning me-2" (click)="abrirModalEditar(servicio)">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminarServicio(servicio._id)">
+              <i class="fas fa-trash"></i> Eliminar
+            </button>
           </td>
         </tr>
-<<<<<<< HEAD
-        <tr *ngIf="servicios.length === 0">
-          <td colspan="3" class="text-center">No hay servicios registrados.</td>
+        <tr *ngIf="filteredServicios.length === 0">
+          <td colspan="3" class="text-center">No hay servicios disponibles.</td>
         </tr>
-=======
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
       </tbody>
     </table>
   </div>
 </div>
 
-<!-- Modal para agregar o editar servicio -->
 <div class="modal fade" id="servicioModal" tabindex="-1" role="dialog" aria-labelledby="servicioModalLabel" aria-hidden="true">
-<<<<<<< HEAD
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <!-- Encabezado del modal -->
-      <div class="modal-header bg-primary text-white">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content shadow-lg rounded">
+      <div [ngClass]="esEditar ? 'modal-header bg-warning text-white' : 'modal-header bg-primary text-white'">
         <h5 class="modal-title" id="servicioModalLabel">
-          <i class="fas fa-briefcase-medical"></i> {{ esEditar ? 'Editar Servicio' : 'Nuevo Servicio' }}
+          <i [ngClass]="esEditar ? 'fas fa-edit' : 'fas fa-briefcase-medical'"></i>
+          {{ esEditar ? 'Editar Servicio' : 'Nuevo Servicio' }}
         </h5>
       </div>
-
-      <!-- Cuerpo del modal -->
       <div class="modal-body">
         <form (ngSubmit)="guardarServicio()">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <label for="nombreServicio" class="form-label">Nombre del Servicio</label>
-                <input type="text" id="nombreServicio" [(ngModel)]="servicioActual.serviceName" name="serviceName" class="form-control" placeholder="Ingrese el nombre del servicio" required>
-              </div>
+          <div class="form-group mb-3">
+            <label for="nombreServicio" class="form-label">Nombre del Servicio</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-briefcase-medical"></i></span>
+              <input
+                type="text"
+                id="nombreServicio"
+                [(ngModel)]="servicioActual.serviceName"
+                name="serviceName"
+                class="form-control"
+                required
+                minlength="3"
+                title="El nombre solo puede contener letras y espacios."
+              />
             </div>
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <label for="precioServicio" class="form-label">Precio</label>
-                <input type="number" id="precioServicio" [(ngModel)]="servicioActual.price" name="price" class="form-control" placeholder="Ingrese el precio" required>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <!-- Pie del modal -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="cerrarModal('servicioModal')">
-          <i class="fas fa-times"></i> Cancelar
-        </button>
-        <button type="submit" class="btn btn-success" (click)="guardarServicio()">
-          <i class="fas fa-save"></i> {{ esEditar ? 'Guardar Cambios' : 'Agregar Servicio' }}
-        </button>
-=======
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="servicioModalLabel">{{ esEditar ? 'Editar Servicio' : 'Nuevo Servicio' }}</h5>
-        <button type="button" class="close" (click)="cerrarModal()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="guardarServicio()">
-          <div class="form-group">
-            <label for="nombreServicio">Nombre del Servicio</label>
-            <input
-              type="text"
-              id="nombreServicio"
-              [(ngModel)]="servicioActual.serviceName"
-              name="serviceName"
-              class="form-control"
-              required
-              minlength="3"
-              title="El nombre solo puede contener letras y espacios."
-            />
             <div *ngIf="servicioActual.serviceName && !esNombreValido(servicioActual.serviceName)" class="text-danger">
               El nombre solo puede contener letras y espacios.
             </div>
           </div>
-          <div class="form-group">
-            <label for="precioServicio">Precio</label>
-            <input
-              type="number"
-              id="precioServicio"
-              [(ngModel)]="servicioActual.price"
-              name="price"
-              class="form-control"
-              required
-              min="1"
-              max="100000"
-            />
+          <div class="form-group mb-3">
+            <label for="precioServicio" class="form-label">Precio</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+              <input
+                type="number"
+                id="precioServicio"
+                [(ngModel)]="servicioActual.price"
+                name="price"
+                class="form-control"
+                required
+                min="1"
+                max="100000"
+              />
+            </div>
             <div *ngIf="servicioActual.price < 1 || servicioActual.price > 100000" class="text-danger">
               El precio debe estar entre 1 y 100000.
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">{{ esEditar ? 'Guardar Cambios' : 'Agregar Servicio' }}</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button type="submit" class="btn" [ngClass]="esEditar ? 'btn-warning' : 'btn-primary'">
+              <i class="fas fa-save"></i> {{ esEditar ? 'Actualizar' : 'Guardar' }}
+            </button>
+          </div>
         </form>
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
       </div>
     </div>
   </div>
-</div>
-
-<!-- Modal para ver detalles del servicio -->
-<div class="modal fade" id="verModal" tabindex="-1" role="dialog" aria-labelledby="verModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="verModalLabel">Detalles del Servicio</h5>
-<<<<<<< HEAD
-        <button type="button" class="close" (click)="cerrarModal('verModal')" aria-label="Close">
-=======
-        <button type="button" class="close" (click)="cerrarModal()" aria-label="Close">
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p><strong>Nombre:</strong> {{ servicioActual.serviceName }}</p>
-        <p><strong>Precio:</strong> {{ servicioActual.price | currency }}</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<<<<<<< HEAD
-<div id="loading" class="loading" *ngIf="cargando">
-  <div class="spinner-border text-primary" role="status"></div>
-  <p>Cerrando sesión...</p>
-=======
-<!-- Indicador de carga -->
-<div id="loading" class="loading" *ngIf="cargando">
-  <div class="spinner-border text-primary" role="status"></div>
-  <p>Cargando...</p>
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
 </div>

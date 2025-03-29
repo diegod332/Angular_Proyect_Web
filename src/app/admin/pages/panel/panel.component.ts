@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
+import Swal from 'sweetalert2';
 import { HttpClientModule } from '@angular/common/http';
 
 import {
@@ -198,19 +199,37 @@ export class PanelComponent implements AfterViewInit, OnInit {
   }
 
   cerrarSesion(): void {
-    this.cargando = true;
-    this.authService.logout().subscribe({
-<<<<<<< HEAD
-      next: () => this.router.navigate(['/login']), 
-=======
-      next: () => {
-        this.router.navigate(['/login']);   
-      },
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
-      error: (err: unknown) => {
-        console.error('Error al cerrar sesión:', err);
-        this.cargando = false;
-      },
-    });
-  }
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¿Deseas cerrar sesión?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí, cerrar sesión',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.cargando = true; // Muestra la pantalla de carga
+
+      this.authService.logout().subscribe({
+        next: () => {
+          setTimeout(() => {
+            this.cargando = false; // Oculta la pantalla de carga
+            this.router.navigate(['/login']); // Redirige al login
+          }, 2000); // Retraso de 2 segundos para la animación
+        },
+        error: (err: unknown) => {
+          console.error('Error al cerrar sesión:', err);
+          this.cargando = false; // Oculta la pantalla de carga en caso de error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al intentar cerrar sesión.',
+          });
+        },
+      });
+    }
+  });
+}
 }

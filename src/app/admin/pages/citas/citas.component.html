@@ -8,8 +8,9 @@
       <nav class="nav flex-column">
         <h5 class="sidebar-section-title">Navegación</h5>
         <a routerLink="/admin/panel" routerLinkActive="active" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
-        <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link" id="activo">Citas</a>
-        <a routerLink="/admin/citas-programadas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar-check"></i> Citas Programadas</a>
+        
+        <h5 class="sidebar-section-title">Gestión</h5>
+        <a routerLink="/admin/citas" routerLinkActive="active" class="nav-link"><i class="fas fa-calendar"></i> Citas</a>
         <a routerLink="/admin/inventario" routerLinkActive="active" class="nav-link"><i class="fas fa-boxes"></i> Inventario</a>
         <a routerLink="/admin/servicios-dentales" routerLinkActive="active" class="nav-link"><i class="fas fa-briefcase-medical"></i> Servicios</a>
         <a routerLink="/admin/clientes" routerLinkActive="active" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
@@ -23,18 +24,26 @@
     </div>
   </div>
 
+  
+  <div class="loading-overlay" *ngIf="cargando">
+    <img src="assets/img/logo_od.ico" class="logo">
+    <p>Cerrando sesión...</p>
+  </div>
+
   <div class="content flex-fill">
     <h1>Gestionar citas</h1>
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <input type="text" class="form-control w-25" placeholder="Buscar...">
-      <div>
-        <button class="btn btn-primary mr-2" (click)="abrirModalNuevaCita()">Nueva Cita</button>
-      </div>
+      <input
+        type="text"
+        class="form-control w-25"
+        placeholder="Buscar..."
+        [(ngModel)]="searchTerm"
+      />
+      <button class="btn btn-primary" (click)="abrirModalNueva()">Nueva Cita</button>
     </div>
 
-    <!-- Tabla de citas -->
-    <table class="table table-striped" *ngIf="citas.length > 0">
-      <thead>
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-dark">
         <tr>
           <th>Nombre Completo</th>
           <th>Fecha</th>
@@ -44,51 +53,119 @@
           <th>Acciones</th>
         </tr>
       </thead>
-      <tbody id="tablaCitas">
-        <!-- Las filas de citas se generarán dinámicamente aquí -->
+      <tbody>
+        <tr *ngFor="let cita of filteredCitas" class="table-light">
+          <td>{{ cita.fullName }}</td>
+          <td>{{ cita.appointmentDate }}</td>
+          <td>{{ cita.appointmentTime }}</td>
+          <td>{{ cita.service }}</td>
+          <td>
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-success': cita.status === 'confirmada',
+                'bg-warning': cita.status === 'pendiente',
+                'bg-danger': cita.status === 'cancelada'
+              }"
+            >
+              {{ cita.status | titlecase }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-outline-warning me-2" (click)="abrirModalEditar(cita)">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminarCita(cita.id)">
+              <i class="fas fa-trash"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredCitas.length === 0">
+          <td colspan="6" class="text-center">No hay citas disponibles.</td>
+        </tr>
       </tbody>
     </table>
-    <p *ngIf="citas.length === 0">No hay citas disponibles.</p>
   </div>
 </div>
 
-<!-- Modal para nueva cita -->
-<div class="modal fade" id="nuevoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="nuevoModalLabel">Nueva Cita</h5>
-        <button type="button" class="btn-close" (click)="cerrarModalNuevaCita()" aria-label="Close"></button>
+<div id="nuevoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content shadow-lg rounded">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="fas fa-calendar-plus"></i> Nueva Cita
+        </h5>
       </div>
-
-      <!-- Cuerpo del modal -->
       <div class="modal-body">
-        <form id="programarCitaForm">
-          <div class="form-group">
-            <label for="client_id">ID del Cliente</label>
-            <input type="text" class="form-control" id="client_id" required>
+        <form (ngSubmit)="guardarCita()">
+          <div class="form-group mb-3">
+            <label for="client" class="form-label">Cliente</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <select class="form-control" [(ngModel)]="citaActual.client" name="client" required>
+                <option value="" disabled>Selecciona un cliente</option>
+                <option *ngFor="let cliente of clientes" [value]="cliente._id">
+                  {{ cliente.firstName }} {{ cliente.middleName || '' }} {{ cliente.lastName }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="appointment_date">Fecha de la cita</label>
-            <input type="date" class="form-control" id="appointment_date" required>
+          <div class="form-group mb-3">
+            <label for="appointmentDate" class="form-label">Fecha</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              <input
+                type="date"
+                id="appointmentDate"
+                class="form-control"
+                [(ngModel)]="citaActual.appointmentDate"
+                name="appointmentDate"
+                required
+              />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="appointment_time">Hora de la cita</label>
-            <input type="time" class="form-control" id="appointment_time" required>
+          <div class="form-group mb-3">
+            <label for="appointmentTime" class="form-label">Hora</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-clock"></i></span>
+              <input
+                type="time"
+                class="form-control"
+                [(ngModel)]="citaActual.appointmentTime"
+                name="appointmentTime"
+                required
+              />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="service_id">ID del Servicio</label>
-            <input type="text" class="form-control" id="service_id" required>
+          <div class="form-group mb-3">
+            <label for="service" class="form-label">Servicio</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-briefcase-medical"></i></span>
+              <select class="form-control" [(ngModel)]="citaActual.service" name="service" required>
+                <option value="" disabled>Selecciona un servicio</option>
+                <option *ngFor="let servicio of servicios" [value]="servicio._id">{{ servicio.serviceName }}</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="estado">Estado</label>
-            <select class="form-control" id="estado" required>
-              <option value="Pendiente">Pendiente</option>
-              <option value="Finalizado">Finalizado</option>
-              <option value="Cancelado">Cancelado</option>
-            </select>
+          <div class="form-group mb-3">
+            <label for="status" class="form-label">Estado</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+              <select class="form-control" [(ngModel)]="citaActual.status" name="status" required>
+                <option value="pendiente">Pendiente</option>
+                <option value="confirmada">Confirmada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary">Agregar Cita</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cerrarModal('nuevoModal')">
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Guardar
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -96,65 +173,85 @@
 </div>
 
 <!-- Modal para editar cita -->
-<div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editarModalLabel">Editar Cita</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<div id="editarModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content shadow-lg rounded">
+      <div class="modal-header bg-warning text-white">
+        <h5 class="modal-title">
+          <i class="fas fa-edit"></i> Editar Cita
+        </h5>
       </div>
       <div class="modal-body">
-        <form id="formEditar">
-          <input type="hidden" id="editId">
-          <div class="form-group">
-            <label for="editClient_id">ID del Cliente</label>
-            <input type="text" class="form-control" id="editClient_id" required>
+        <form (ngSubmit)="guardarCita()">
+          <div class="form-group mb-3">
+            <label for="client" class="form-label">Cliente</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <select class="form-control" [(ngModel)]="citaActual.client" name="client" required>
+                <option value="" disabled>Selecciona un cliente</option>
+                <option *ngFor="let cliente of clientes" [value]="cliente._id">
+                  {{ cliente.firstName }} {{ cliente.middleName || '' }} {{ cliente.lastName }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="editAppointment_date">Fecha de la cita</label>
-            <input type="date" class="form-control" id="editAppointment_date" required>
+          <div class="form-group mb-3">
+            <label for="appointmentDate" class="form-label">Fecha</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              <input
+                type="date"
+                id="appointmentDate"
+                class="form-control"
+                [(ngModel)]="citaActual.appointmentDate"
+                name="appointmentDate"
+                required
+              />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="editAppointment_time">Hora de la cita</label>
-            <input type="time" class="form-control" id="editAppointment_time" required>
+          <div class="form-group mb-3">
+            <label for="appointmentTime" class="form-label">Hora</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-clock"></i></span>
+              <input
+                type="time"
+                class="form-control"
+                [(ngModel)]="citaActual.appointmentTime"
+                name="appointmentTime"
+                required
+              />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="editService_id">ID del Servicio</label>
-            <input type="text" class="form-control" id="editService_id" required>
+          <div class="form-group mb-3">
+            <label for="service" class="form-label">Servicio</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-briefcase-medical"></i></span>
+              <select class="form-control" [(ngModel)]="citaActual.service" name="service" required>
+                <option value="" disabled>Selecciona un servicio</option>
+                <option *ngFor="let servicio of servicios" [value]="servicio._id">{{ servicio.serviceName }}</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="editEstado">Estado</label>
-            <select class="form-control" id="editEstado" required>
-              <option value="Pendiente">Pendiente</option>
-              <option value="Finalizado">Finalizado</option>
-              <option value="Cancelado">Cancelado</option>
-            </select>
+          <div class="form-group mb-3">
+            <label for="status" class="form-label">Estado</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+              <select class="form-control" [(ngModel)]="citaActual.status" name="status" required>
+                <option value="pendiente">Pendiente</option>
+                <option value="confirmada">Confirmada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cerrarModal('editarModal')">
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button type="submit" class="btn btn-warning">
+              <i class="fas fa-save"></i> Actualizar
+            </button>
+          </div>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal para ver detalles de la cita -->
-<div class="modal fade" id="verModal" tabindex="-1" role="dialog" aria-labelledby="verModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="verModalLabel">Detalles de la Cita</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Nombre Completo: {{ detalleNombre }}</p>
-        <p>Fecha de la cita: {{ detalleFecha }}</p>
-        <p>Hora de la cita: {{ detalleHora }}</p>
-        <p>Servicio: {{ detalleServicio }}</p>
-        <p>Estado: {{ detalleEstado }}</p>
       </div>
     </div>
   </div>
@@ -162,5 +259,5 @@
 
 <div id="loading" class="loading" *ngIf="cargando">
   <div class="spinner-border text-primary" role="status"></div>
-  <p>Cerrando sesión...</p>
+  <p>Cargando...</p>
 </div>

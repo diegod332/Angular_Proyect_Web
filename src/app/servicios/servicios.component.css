@@ -425,6 +425,23 @@
   max-width: 800px; /* Limita el ancho del texto */
 }
 
+.video-servicios {
+  padding: 15px 0;
+  text-align: center;
+}
+
+.video-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* Estilo para la sección de información adicional */
 .info-adicional {
   background-color: #ffffff; /* Fondo blanco */

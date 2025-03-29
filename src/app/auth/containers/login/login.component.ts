@@ -2,16 +2,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-<<<<<<< HEAD
   styleUrls: ['./login.component.css'],
-=======
-  styleUrls: ['../../../../assets/css/landing-global.css'],
-  encapsulation: ViewEncapsulation.None,
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
   standalone: false,
 })
 export class LoginComponent {
@@ -40,21 +36,35 @@ export class LoginComponent {
 
           // Verificar el rol del usuario
           if (userRole === 'admin') {
-            this.router.navigate(['/admin/panel']); // Redirigir al panel administrativo
+            setTimeout(() => {
+              this.router.navigate(['/admin/panel']); // Redirigir al panel administrativo
+              this.cargando = false; // Oculta la pantalla de carga después del retraso
+            }, 2000);
           } else {
-            alert('No tienes permiso para acceder al panel administrativo.');
+            this.cargando = false; // Oculta la pantalla de carga
+            Swal.fire({
+              icon: 'error',
+              title: 'Acceso denegado',
+              text: 'No tienes permiso para acceder al panel administrativo.',
+            });
           }
-
-          this.cargando = false;
         },
         error: (err) => {
           console.error('Error al iniciar sesión:', err);
-          alert('Usuario o contraseña incorrectos.');
           this.cargando = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al iniciar sesión',
+            text: 'Usuario o contraseña incorrectos.',
+          });
         },
       });
     } else {
-      alert('Por favor, complete todos los campos.');
+       Swal.fire({
+      icon: 'warning',
+      title: 'Campos incompletos',
+      text: 'Por favor, complete todos los campos.',
+    });
     }
   }
 }

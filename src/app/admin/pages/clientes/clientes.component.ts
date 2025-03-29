@@ -2,13 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-import { HttpClient } from '@angular/common/http';
-
-declare var bootstrap: any; // Declarar Bootstrap para usar su API
-=======
 import Swal from 'sweetalert2';
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
 
 @Component({
   selector: 'app-clientes',
@@ -16,16 +10,6 @@ import Swal from 'sweetalert2';
   templateUrl: './clientes.component.html',
   styleUrls: ['../../admin.component.css'],
 })
-<<<<<<< HEAD
-export class ClientesComponent {
-  private apiURL = 'http://localhost:3004/api/clients'; // Ruta base para clientes
-  cargando: boolean = false; // Variable para mostrar el indicador de carga
-  clientes: any[] = []; // Lista de clientes
-  clienteActual: any = {}; // Cliente actual para agregar/editar
-  esEditar: boolean = false; // Indica si se está editando un cliente
-
-  constructor(private router: Router, private authService: AuthService, private http: HttpClient) {}
-=======
 export class ClientesComponent implements OnInit {
   cargando: boolean = false; // Indicador de carga
   clientes: any[] = []; // Lista de clientes
@@ -40,9 +24,9 @@ export class ClientesComponent implements OnInit {
   esEditar: boolean = false; // Indica si se está editando un cliente
   searchTerm: string = ''; // Término de búsqueda
 
-  private apiURL = 'http://localhost:3004/api/clients'; 
+  private apiURL = 'http://localhost:3004/api/clients';
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.obtenerClientes();
@@ -69,7 +53,7 @@ export class ClientesComponent implements OnInit {
   get filteredClientes(): any[] {
     if (!this.searchTerm.trim()) {
       console.log('Sin término de búsqueda, mostrando todos los clientes:', this.clientes);
-      return this.clientes; 
+      return this.clientes;
     }
     const lowerCaseTerm = this.searchTerm.toLowerCase();
     const filtrados = this.clientes.filter((cliente) =>
@@ -134,7 +118,7 @@ export class ClientesComponent implements OnInit {
       });
       return;
     }
-  
+
     if (!this.clienteActual.middleName || !this.esApellidoValido(this.clienteActual.middleName)) {
       Swal.fire({
         icon: 'error',
@@ -143,7 +127,7 @@ export class ClientesComponent implements OnInit {
       });
       return;
     }
-  
+
     if (!this.clienteActual.lastName || !this.esApellidoValido(this.clienteActual.lastName)) {
       Swal.fire({
         icon: 'error',
@@ -152,7 +136,7 @@ export class ClientesComponent implements OnInit {
       });
       return;
     }
-  
+
     if (!this.clienteActual.emergencyNumber || !this.esNumeroValido(this.clienteActual.emergencyNumber)) {
       Swal.fire({
         icon: 'error',
@@ -161,14 +145,14 @@ export class ClientesComponent implements OnInit {
       });
       return;
     }
-  
+
     // Validación: Verificar si el número de emergencia ya existe
     const numeroDuplicado = this.clientes.some(
       (cliente) =>
         cliente.emergencyNumber === this.clienteActual.emergencyNumber &&
-        cliente._id !== this.clienteActual._id 
+        cliente._id !== this.clienteActual._id
     );
-  
+
     if (numeroDuplicado) {
       Swal.fire({
         icon: 'error',
@@ -177,7 +161,7 @@ export class ClientesComponent implements OnInit {
       });
       return;
     }
-  
+
     // Validar correo y contraseña solo al crear un cliente
     if (!this.esEditar) {
       if (!this.clienteActual.email || !this.esCorreoValido(this.clienteActual.email)) {
@@ -188,7 +172,7 @@ export class ClientesComponent implements OnInit {
         });
         return;
       }
-  
+
       if (!this.clienteActual.password || this.clienteActual.password.trim().length < 9) {
         Swal.fire({
           icon: 'error',
@@ -198,7 +182,7 @@ export class ClientesComponent implements OnInit {
         return;
       }
     }
-  
+
     // Guardar o actualizar cliente
     if (this.esEditar) {
       this.http.put(`${this.apiURL}/${this.clienteActual._id}`, this.clienteActual).subscribe({
@@ -265,99 +249,39 @@ export class ClientesComponent implements OnInit {
       }
     });
   }
->>>>>>> f344b30bace9e387ec4ee7931b02fc3ad5d1bd10
 
   cerrarSesion(): void {
-    this.cargando = true;
-    this.authService.logout().subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        console.error('Error al cerrar sesión:', err);
-        this.cargando = false;
-      },
-      complete: () => {
-        this.cargando = false; // Asegura que el indicador de carga se detenga
-      },
-    });
-  }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas cerrar sesión?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cargando = true; // Muestra la pantalla de carga
 
-  abrirModalNuevo(): void {
-    this.clienteActual = {}; // Limpia el cliente actual
-    this.esEditar = false; // Modo agregar
-    this.mostrarModal('clienteModal');
-  }
-
-  abrirModalEditar(cliente: any): void {
-    this.clienteActual = { ...cliente }; // Copia el cliente seleccionado
-    this.esEditar = true; // Modo editar
-    this.mostrarModal('clienteModal');
-  }
-
-  obtenerClientes(): void {
-    this.http.get<any>(this.apiURL).subscribe({
-      next: (response) => {
-        this.clientes = response.data;
-      },
-      error: (err) => {
-        console.error('Error al obtener clientes:', err);
-      },
-    });
-  }
-
-  guardarCliente(): void {
-    if (this.esEditar) {
-      // Actualizar cliente existente
-      this.http.put(`${this.apiURL}/${this.clienteActual.id}`, this.clienteActual).subscribe({
-        next: () => {
-          this.obtenerClientes(); // Actualizar la lista de clientes
-          this.cerrarModal('clienteModal');
-        },
-        error: (err) => {
-          console.error('Error al actualizar cliente:', err);
-        },
-      });
-    } else {
-      // Crear nuevo cliente
-      this.http.post(this.apiURL, this.clienteActual).subscribe({
-        next: () => {
-          this.obtenerClientes(); // Actualizar la lista de clientes
-          this.cerrarModal('clienteModal');
-        },
-        error: (err) => {
-          console.error('Error al crear cliente:', err);
-        },
-      });
-    }
-  }
-
-  eliminarCliente(id: number): void {
-    this.http.delete(`${this.apiURL}/${id}`).subscribe({
-      next: () => {
-        this.obtenerClientes(); // Actualizar la lista de clientes
-      },
-      error: (err) => {
-        console.error('Error al eliminar cliente:', err);
-      },
-    });
-  }
-
-  mostrarModal(modalId: string): void {
-    const modalElement = document.getElementById(modalId);
-    if (modalElement) {
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
-    }
-  }
-
-  cerrarModal(modalId: string): void {
-    const modalElement = document.getElementById(modalId);
-    if (modalElement) {
-      const modal = bootstrap.Modal.getInstance(modalElement);
-      if (modal) {
-        modal.hide();
+        this.authService.logout().subscribe({
+          next: () => {
+            setTimeout(() => {
+              this.cargando = false; // Oculta la pantalla de carga
+              this.router.navigate(['/login']); // Redirige al login
+            }, 2000); // Retraso de 2 segundos para la animación
+          },
+          error: (err: unknown) => {
+            console.error('Error al cerrar sesión:', err);
+            this.cargando = false; // Oculta la pantalla de carga en caso de error
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Ocurrió un error al intentar cerrar sesión.',
+            });
+          },
+        });
       }
-    }
+    });
   }
 }

@@ -125,6 +125,43 @@
     max-width: 800px; /* Limita el ancho del texto */
 }
 
+.inicio-contenido {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .inicio-texto {
+    flex: 1;
+    max-width: 50%; /* Ocupa el 50% del ancho */
+    text-align: left;
+  }
+  
+  .inicio-video {
+    flex: 1;
+    max-width: 50%; /* Ocupa el 50% del ancho */
+  }
+  
+  .inicio-video video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .inicio-contenido {
+      flex-direction: column; /* Cambia a diseño vertical en pantallas pequeñas */
+      text-align: center;
+    }
+  
+    .inicio-texto, .inicio-video {
+      max-width: 100%; /* Ocupa el 100% del ancho en pantallas pequeñas */
+    }
+  }
+
 .boton-destacado {
     display: inline-block;
     padding: 12px 25px;
