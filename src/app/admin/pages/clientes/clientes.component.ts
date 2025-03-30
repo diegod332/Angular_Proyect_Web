@@ -24,7 +24,7 @@ export class ClientesComponent implements OnInit {
   esEditar: boolean = false; // Indica si se está editando un cliente
   searchTerm: string = ''; // Término de búsqueda
 
-  private apiURL = 'http://localhost:3004/api/clients';
+  private apiURL = 'http://odontologiaintegral.site/api/clients';
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 

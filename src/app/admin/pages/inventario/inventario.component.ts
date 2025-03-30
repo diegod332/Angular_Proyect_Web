@@ -18,7 +18,7 @@ export class InventarioComponent implements OnInit {
   minDate: string = ''; // Fecha mínima para el campo de caducidad
   searchTerm: string = ''; // Término de búsqueda
 
-  private apiURL = 'http://localhost:3004/api/supplies';
+  private apiURL = 'http://odontologiaintegral.site/api/supplies';
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 

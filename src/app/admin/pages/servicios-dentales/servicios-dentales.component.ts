@@ -18,7 +18,7 @@ export class ServiciosDentalesComponent implements OnInit {
   servicioActual: any = { serviceName: '', price: 0 }; // Servicio actual para agregar o editar
   esEditar: boolean = false; // Indica si se está editando un servicio
   searchTerm: string = '';
-  private apiURL = 'http://localhost:3004/api/services';
+  private apiURL = 'http://odontologiaintegral.site/api/services';
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 

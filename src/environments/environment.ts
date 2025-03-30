@@ -11,7 +11,7 @@
 export const environment = {
     production: false,
     api: {
-      authApis: 'http://localhost:3004/api',
+      authApis: 'http://odontologiaintegral.site/api', //localhost: 'http://localhost:3004/api',
       proyectApis: 'http://localhost:3004/api',
     },
 };

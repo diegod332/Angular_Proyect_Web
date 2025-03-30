@@ -26,7 +26,7 @@ export class CitasComponent implements OnInit {
   servicios: any[] = [];
   searchTerm: string = '';
 
-  private apiURL = 'http://localhost:3004/api/appointments';
+  private apiURL = 'http://odontologiaintegral.site/api/appointments';
   minDate: string | undefined;
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
@@ -63,7 +63,7 @@ export class CitasComponent implements OnInit {
 
   // Obtiene todos los servicios
   obtenerServicios(): void {
-    this.http.get<any>('http://localhost:3004/api/services').subscribe({
+    this.http.get<any>('http://odontologiaintegral.site/api/services').subscribe({
       next: (response) => {
         this.servicios = response.data;
       },
@@ -75,7 +75,7 @@ export class CitasComponent implements OnInit {
 
   // Obtiene todos los clientes
   obtenerClientes(): void {
-    this.http.get<any>('http://localhost:3004/api/clients').subscribe({
+    this.http.get<any>('http://odontologiaintegral.site/api/clients').subscribe({
       next: (response) => {
         this.clientes = response.data.map((cliente: any) => ({
           ...cliente,
