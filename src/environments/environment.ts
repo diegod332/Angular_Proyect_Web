@@ -9,9 +9,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-    production: false,
+    production: true,
     api: {
       authApis: 'http://odontologiaintegral.site/api', //localhost: 'http://localhost:3004/api',
-      proyectApis: 'http://localhost:3004/api',
+      proyectApis: 'http://odontologiaintegral.site/api',
     },
 };
